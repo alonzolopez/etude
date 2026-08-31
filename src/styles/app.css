@@ -1,11 +1,14 @@
-.wizard { max-width: 720px; margin: 0 auto; padding: 12vh 24px 0; }
+/* bottom padding keeps a long option list off the fixed .theme-toggle */
+.wizard { max-width: 720px; margin: 0 auto; padding: 12vh 24px 48px; }
 .eyebrow {
   font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--muted); margin: 0 0 20px;
 }
 .wizard-options { display: flex; flex-direction: column; gap: 14px; }
 .wizard-btn {
-  display: flex; justify-content: space-between; align-items: center;
+  /* gap, not just space-between: a content-sized button (Start) has no free
+     space to distribute, so its label and keycap would otherwise touch. */
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
   font-family: var(--font-display); font-size: 22px; text-align: left;
   padding: 18px 20px; min-height: 60px;
   background: var(--surface); color: var(--ink);
@@ -46,7 +49,9 @@ body.keys-disarmed .kbd { opacity: 0.35; }
 .ss-key { color: var(--accent); font-style: italic; font-size: 18px; margin: 0; }
 .ss-bpm { font-family: var(--font-mono); font-size: 14px; letter-spacing: 0.14em; color: var(--amber-readout); margin: 0; }
 .ss-note { color: var(--muted); max-width: 40em; margin: 0; }
-.p-bottom { display: flex; align-items: center; gap: 18px; padding: 14px 24px 18px; }
+/* bottom padding clears the fixed .theme-toggle (~27px tall from the viewport
+   bottom) so it can never sit on the metronome card */
+.p-bottom { display: flex; align-items: center; gap: 18px; padding: 14px 24px 36px; }
 .metro { display: flex; align-items: center; gap: 14px; background: var(--metro-card); color: var(--metro-ink); border: 1px solid var(--line); border-radius: var(--radius-hw); padding: 10px 16px; }
 .lamp { width: 14px; height: 14px; border-radius: 50%; background: var(--amber); opacity: 0.35; }
 .lamp.flash { animation: lampflash 0.15s ease-out; }
@@ -65,9 +70,14 @@ body.keys-disarmed .kbd { opacity: 0.35; }
 .navbtn button { font-family: var(--font-display); font-size: 17px; min-height: 56px; padding: 0 22px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; }
 .navbtn.primary button { background: var(--accent); color: var(--ground); border-color: var(--accent); }
 
-/* ---- theme toggle (both screens, deliberately quiet) ---- */
+/* ---- theme toggle (both screens, deliberately quiet) ----
+   Fixed to the bottom-left corner, so both screens reserve room for it rather
+   than letting it sit on top of their content: .p-bottom pads below the
+   metronome card, .wizard pads below its last button. Its own box is sized
+   explicitly (11px x 1.2 + 4px padding ~= 17px tall, top edge ~27px from the
+   viewport bottom) so that reserved space is a real number, not a UA default. */
 .theme-toggle {
   position: fixed; bottom: 10px; left: 10px;
-  font-family: var(--font-mono); font-size: 11px; color: var(--muted);
-  background: none; border: none; cursor: pointer; opacity: 0.7;
+  font-family: var(--font-mono); font-size: 11px; line-height: 1.2; color: var(--muted);
+  background: none; border: none; padding: 2px 6px; cursor: pointer; opacity: 0.7;
 }
