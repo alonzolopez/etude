@@ -12,8 +12,11 @@ push to master. Design spec: `docs/spec.md` — read it before changing behavior
 ## Content editing
 Exercises live in `public/exercises/` (see `public/CLAUDE.md` for the schema).
 Edit → commit → push → live in ~1 min. No app code changes needed.
-Converting a Soundslice exercise to inline notation: export GPX from Soundslice,
-commit under `public/notation/`, set the exercise's `file`, drop its `url`.
+Converting a Soundslice exercise to inline notation, or adding a new notation
+exercise: use the `convert-soundslice` skill (`.claude/skills/convert-soundslice/`)
+rather than hand-editing — it parse-validates the export with alphaTab before
+touching any JSON, and refuses song-synced jam-track slices, which stay Soundslice
+cards permanently (spec §2.2).
 
 ## Hotkeys
 Wizard: `g/b/d` instrument · `1–9` category · `1–5` duration presets ·

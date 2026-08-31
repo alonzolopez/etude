@@ -524,3 +524,11 @@ notation file under `public/notation/`, and inserts the exercise into the right
 conversion. The §2.1 file shapes are the contract these skills target; the
 implementer builds nothing for this, but should not make the content files
 harder to machine-edit than the spec already describes.
+
+**Delivered 2026-08-31 — the conversion half.** `.claude/skills/convert-soundslice/`:
+locate the exercise by title, url, or slice id (slice ids are reused across
+instrument files, so it refuses to guess); parse-proof the export headlessly with
+alphaTab's own `ScoreLoader`; one-line `url` → `file` edit; `tests/content.test.ts`
+as the gate. It also covers adding an exercise for a notation file that matches
+none. Still open: the general authoring skill for YouTube / GrooveScribe URLs with
+full metadata and category creation.
