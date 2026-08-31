@@ -38,7 +38,9 @@ function setVolume(v: number): void {
 // ---- session state ----
 const hotkeys = new Hotkeys();
 hotkeys.attach();
-const history = new InstanceHistory();
+// Session-scoped: every session starts from an empty instance stack, so `←` on a
+// new session's first exercise can never walk into the previous session's entries.
+let history = new InstanceHistory();
 let session: { category: Category; timer: SessionTimer } | null = null;
 let screenHandle: { destroy(): void; tick(): void } | null = null;
 let ticker: ReturnType<typeof setInterval> | null = null;
@@ -50,6 +52,9 @@ let wizardHandle: { showStep(n: number): void } | null = null;
 // fires onStepChange on EVERY step render, including the ones popstate triggers,
 // so without this the replay would push new entries while navigating the stack.
 let restoringNav = false;
+// The wizard step currently on screen. A render of a LOWER step is a backward
+// move (`esc`/`←`), which must walk the history stack back, not grow it.
+let wizardStep = 1;
 
 // ---- history API: state objects only, never paths (spec §5) ----
 type NavState = { screen: 'wizard'; step: number } | { screen: 'practice'; cursor: number };
@@ -88,15 +93,28 @@ function teardownScreen(): void {
 
 async function showWizard(): Promise<void> {
   teardownScreen();
+  // Leaving the session silences the click — the wizard has no `m` binding to
+  // stop it with. Deliberately NOT in teardownScreen()/practice destroy(): the
+  // metronome must survive every next/previous switch and Soundslice tab-out (§3.2).
+  audio?.metronome.stop();
   session = null;
   wizardHandle = null;
+  wizardStep = 1; // must precede renderWizard: it fires onStepChange(1) synchronously
   const instruments = await loadIndex();
   wizardHandle = renderWizard(app, {
     instruments,
     loadContent: loadInstrument,
     hotkeys,
     onStart: startSession,
-    onStepChange: (step) => { if (step > 1 && !restoringNav) pushNav({ screen: 'wizard', step }); },
+    onStepChange: (step) => {
+      if (restoringNav) { wizardStep = step; return; } // replaying a history entry
+      const backward = step < wizardStep;
+      wizardStep = step;
+      // `esc`/`←` is a real back navigation: walk the stack (the resulting popstate
+      // re-renders this step under restoringNav) rather than pushing a duplicate.
+      if (backward) { window.history.back(); return; }
+      if (step > 1) pushNav({ screen: 'wizard', step });
+    },
   });
   renderThemeToggle();
 }
@@ -105,6 +123,7 @@ async function startSession(sel: SessionSelection): Promise<void> {
   await ensureAudio(); // the start interaction is our unlock gesture
   const timer = new SessionTimer(sel.durationMinutes);
   timer.start();
+  history = new InstanceHistory(); // fresh stack per session (never inherit the last one)
   session = { category: sel.category, timer };
   drawNext();
 }

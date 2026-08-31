@@ -88,9 +88,15 @@ export function renderPractice(
     f.title = inst.exercise.title;
     content.append(f);
   } else if (kind === 'soundslice') {
+    // The card is a permanent surface (spec §2.2) and has to stand on its own:
+    // title, key line, rolled bpm, description — each only when it exists (§3.2).
+    const line = keyLine(inst);
     content.innerHTML = `
       <div class="ss-card">
-        <p class="ss-note">${esc(inst.exercise.description ?? '')}</p>
+        <h2 class="ss-title">${esc(inst.exercise.title)}</h2>
+        ${line ? `<p class="ss-key">${esc(line)}</p>` : ''}
+        ${inst.bpm !== undefined ? `<p class="ss-bpm">${inst.bpm} BPM</p>` : ''}
+        ${inst.exercise.description ? `<p class="ss-note">${esc(inst.exercise.description)}</p>` : ''}
         <a class="wizard-btn primary" target="_blank" rel="noopener"
            href="${esc(inst.exercise.url!)}">Open in Soundslice ↗</a>
       </div>`;

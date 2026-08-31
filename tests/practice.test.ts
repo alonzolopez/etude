@@ -47,6 +47,27 @@ describe('renderPractice content area', () => {
     expect(app.querySelector('iframe')).toBeNull();
   });
 
+  it('the soundslice card carries title, key line and bpm (spec §3.2)', () => {
+    const app = render({ url: 'https://www.soundslice.com/slices/xFhXc/' });
+    const card = app.querySelector('.ss-card')!;
+    expect(card.textContent).toContain('Minor Pentatonic');
+    expect(card.textContent).toContain('A minor · mode 5');
+    expect(card.textContent).toContain('98');
+    // no description on this exercise: no empty note paragraph
+    expect(card.querySelector('.ss-note')).toBeNull();
+  });
+
+  it('the soundslice card shows a description when there is one, and omits absent parts', () => {
+    const app = render(
+      { url: 'https://www.soundslice.com/slices/xFhXc/', description: 'Watch the shifts.' },
+      { key: undefined, mode: undefined, bpm: undefined },
+    );
+    const card = app.querySelector('.ss-card')!;
+    expect(card.querySelector('.ss-note')?.textContent).toContain('Watch the shifts.');
+    expect(card.querySelector('.ss-key')).toBeNull();
+    expect(card.querySelector('.ss-bpm')).toBeNull();
+  });
+
   it('youtube renders an iframe with enablejsapi, preserving existing params', () => {
     const app = render({ url: 'https://www.youtube-nocookie.com/embed/x?si=abc' });
     const f = app.querySelector('iframe') as HTMLIFrameElement;

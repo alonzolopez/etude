@@ -3,9 +3,19 @@ export function comboOf(e: KeyboardEvent): string {
   return e.shiftKey && k.startsWith('arrow') ? `shift+${k}` : k;
 }
 
+// Only genuine text-entry controls swallow single-key hotkeys (spec §4.2). A
+// focused slider/checkbox/button is NOT typing: the practice screen's volume
+// range input must not disarm `→ ← space m h` once it has been tapped.
+const TEXT_ENTRY_TYPES = new Set([
+  'text', 'search', 'number', 'email', 'url', 'password', 'tel',
+]);
+
 function inTextInput(): boolean {
   const el = document.activeElement;
-  return el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement;
+  if (el instanceof HTMLTextAreaElement) return true;
+  // `.type` reflects the parsed attribute, defaulting to 'text' when absent.
+  if (el instanceof HTMLInputElement) return TEXT_ENTRY_TYPES.has(el.type);
+  return false;
 }
 
 export class Hotkeys {

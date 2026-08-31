@@ -37,6 +37,20 @@ describe('Hotkeys', () => {
     expect(enters).toBe(1);
   });
 
+  it('keeps hotkeys live while a non-text input (the volume slider) is focused', () => {
+    document.body.innerHTML = '<input id="vol" type="range" min="0" max="100" />';
+    (document.getElementById('vol') as HTMLInputElement).focus();
+    let nexts = 0, spaces = 0;
+    hk.bind('arrowright', () => nexts++);
+    hk.bind('space', () => spaces++);
+    hk.handle(key('ArrowRight'));
+    const e = key(' ');
+    hk.handle(e);
+    expect(nexts).toBe(1);
+    expect(spaces).toBe(1);
+    expect(e.defaultPrevented).toBe(true); // and the page never scrolls
+  });
+
   it('escape blurs a focused input instead of running its binding', () => {
     document.body.innerHTML = '<input id="box" />';
     const box = document.getElementById('box') as HTMLInputElement;

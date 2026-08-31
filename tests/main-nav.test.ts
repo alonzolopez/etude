@@ -64,4 +64,23 @@ describe('main.ts wizard history navigation', () => {
     expect(window.history.length).toBe(lengthAtStep3);
     expect(window.history.state).toEqual({ screen: 'wizard', step: 3 });
   });
+
+  it('esc walks the history stack back instead of pushing a duplicate entry', async () => {
+    // Continues from the previous test's state: wizard live at step 3, stack
+    // [wizard 1, wizard 2, wizard 3]. (One main.ts import per file — module and
+    // window history are shared, so these run in order.)
+    expect(step()).toContain('Step 3 of 3');
+    const lengthAtStep3 = window.history.length;
+
+    press('Escape');
+    await vi.waitFor(() => expect(step()).toContain('Step 2 of 3'));
+    await vi.waitFor(() => expect(window.history.state).toEqual({ screen: 'wizard', step: 2 }));
+    expect(window.history.length).toBe(lengthAtStep3); // esc never grows the stack
+
+    // ...so Back continues backward to step 1, rather than "forward" to the
+    // step 3 the user just left.
+    window.history.back();
+    await vi.waitFor(() => expect(step()).toContain('Step 1 of 3'));
+    expect(window.history.length).toBe(lengthAtStep3);
+  });
 });
