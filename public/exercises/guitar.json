@@ -1,0 +1,1050 @@
+{
+  "instrument": "Guitar",
+  "categories": [
+    {
+      "key": "scales",
+      "name": "Scales",
+      "exercises": [
+        {
+          "title": "Major scale practice",
+          "weight": 2,
+          "key": [
+            "A major",
+            "A# major",
+            "B major",
+            "C major",
+            "C# major",
+            "D major",
+            "D# major",
+            "E major",
+            "F major",
+            "F# major",
+            "G major",
+            "G# major"
+          ],
+          "mode": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Minor pentatonic scale",
+          "weight": 2,
+          "url": "https://www.soundslice.com/slices/-scqc/",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G major",
+            "G# major"
+          ],
+          "mode": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Minor pentatonic scale with b5",
+          "weight": 2,
+          "url": "https://www.soundslice.com/slices/81cqc/",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G major",
+            "G# major"
+          ],
+          "mode": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Harmonic minor practice",
+          "weight": 2,
+          "key": [
+            "A harmonic minor",
+            "A# harmonic minor",
+            "B harmonic minor",
+            "C harmonic minor",
+            "C# harmonic minor",
+            "D harmonic minor",
+            "D# harmonic minor",
+            "E harmonic minor",
+            "F harmonic minor",
+            "F# harmonic minor",
+            "G harmonic minor",
+            "G# harmonic minor"
+          ],
+          "mode": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Melodic minor practice",
+          "weight": 2,
+          "key": [
+            "A melodic minor",
+            "A# melodic minor",
+            "B melodic minor",
+            "C melodic minor",
+            "C# melodic minor",
+            "D melodic minor",
+            "D# melodic minor",
+            "E melodic minor",
+            "F melodic minor",
+            "F# melodic minor",
+            "G melodic minor",
+            "G# melodic minor"
+          ],
+          "mode": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth). Remember that the melodic minor scale can be thought of as the Major Ionian scale with a lowered 3rd, or Dorian with a raised 7th."
+        },
+        {
+          "title": "Major Blues scale practice",
+          "weight": 2,
+          "key": [
+            "A major blues",
+            "A# major blues",
+            "B major blues",
+            "C major blues",
+            "C# major blues",
+            "D major blues",
+            "D# major blues",
+            "E major blues",
+            "F major blues",
+            "F# major blues",
+            "G major blues",
+            "G# major blues"
+          ],
+          "mode": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Minor Blues scale practice",
+          "weight": 2,
+          "key": [
+            "A minor blues",
+            "A# minor blues",
+            "B minor blues",
+            "C minor blues",
+            "C# minor blues",
+            "D minor blues",
+            "D# minor blues",
+            "E minor blues",
+            "F minor blues",
+            "F# minor blues",
+            "G minor blues",
+            "G# minor blues"
+          ],
+          "mode": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "The Chromatic Scale",
+          "weight": 0,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "The Diminished Scale",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/9nhXc/",
+          "key": [
+            "A diminished",
+            "A# diminished",
+            "B diminished",
+            "C diminished",
+            "C# diminished",
+            "D diminished",
+            "D# diminished",
+            "E diminished",
+            "F diminished",
+            "F# diminished",
+            "G diminished",
+            "G# diminished"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "The Dominant Diminished Scale",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/xFhXc/",
+          "key": [
+            "A dominant diminished",
+            "A# dominant diminished",
+            "B dominant diminished",
+            "C dominant diminished",
+            "C# dominant diminished",
+            "D dominant diminished",
+            "D# dominant diminished",
+            "E dominant diminished",
+            "F dominant diminished",
+            "F# dominant diminished",
+            "G dominant diminished",
+            "G# dominant diminished"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Remember that the dominant diminished scale is the 7th mode of the diminished scale. It alternates half and whole steps and is usually used to play over dominant 7b9 chords."
+        }
+      ]
+    },
+    {
+      "key": "song_arpeggios",
+      "name": "Arpeggios over Songs",
+      "exercises": [
+        {
+          "title": "Arpeggios over Real Life by The Marias",
+          "weight": 2,
+          "url": "https://www.soundslice.com/slices/BVhXc/",
+          "key": [
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor"
+          ]
+        },
+        {
+          "title": "Arpeggios over El Barco by Karol G",
+          "weight": 2,
+          "url": "https://www.soundslice.com/slices/6H7Rc/",
+          "key": [
+            "G# minor",
+            "A minor",
+            "A# minor",
+            "F# minor",
+            "G minor"
+          ]
+        },
+        {
+          "title": "Arpeggios over Despicable Beat",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/DFlCc/",
+          "key": [
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor"
+          ]
+        },
+        {
+          "title": "Arpeggios over Double or Nothin'",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/RwhXc/",
+          "key": [
+            "F major",
+            "F# major",
+            "G major",
+            "G# major",
+            "A major"
+          ]
+        },
+        {
+          "title": "Arpeggios over Weeping Willow",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/KwhXc/",
+          "key": [
+            "A# major",
+            "B major",
+            "C major",
+            "C# major",
+            "D major"
+          ]
+        },
+        {
+          "title": "Arpeggios over Mark's Spear",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/GwhXc/",
+          "key": [
+            "G minor",
+            "G# minor",
+            "A minor",
+            "A# minor",
+            "B minor"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "chord_arpeggios",
+      "name": "Chord Arpeggios",
+      "exercises": [
+        {
+          "title": "Arpeggio over a maj7 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a m7 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a 7b9 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a 7#9 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a m7b5 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a dim7 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a 6 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a 6/9 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a maj9 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a m9 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a m11 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a 9 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a 11 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Arpeggio over a 13 chord",
+          "weight": 2,
+          "key": [
+            "A",
+            "A#",
+            "B",
+            "C",
+            "C#",
+            "D",
+            "D#",
+            "E",
+            "F",
+            "F#",
+            "G",
+            "G#"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
+        }
+      ]
+    },
+    {
+      "key": "speed",
+      "name": "Speed",
+      "exercises": [
+        {
+          "title": "Scale Rising and Falling Pattern",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/Hx23c/",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G minor",
+            "G# minor"
+          ],
+          "metronome_range": [
+            60,
+            100
+          ]
+        },
+        {
+          "title": "Harmonic Minor Speed Exercises",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/k22Rc/",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G minor",
+            "G# minor"
+          ],
+          "metronome_range": [
+            60,
+            100
+          ]
+        },
+        {
+          "title": "Alternate Picking Speed Exercise",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/VR2Rc/",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G minor",
+            "G# minor"
+          ],
+          "metronome_range": [
+            60,
+            140
+          ]
+        },
+        {
+          "title": "Alternate Picking with String Skipping",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/bM1Rc/",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G minor",
+            "G# minor"
+          ],
+          "metronome_range": [
+            100,
+            140
+          ]
+        },
+        {
+          "title": "Alternate Picking with String Skipping",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/bM1Rc/in-practice-XZsc7/",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G minor",
+            "G# minor"
+          ],
+          "metronome_range": [
+            60,
+            140
+          ]
+        }
+      ]
+    },
+    {
+      "key": "sweep_picking",
+      "name": "Sweep Picking",
+      "exercises": [
+        {
+          "title": "Sweep Picking through a Diatonic Chord Progression",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/hlhXc/",
+          "key": [
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor"
+          ]
+        },
+        {
+          "title": "Sweep Picking through dim7 Arpeggios",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/YXhRc/",
+          "key": [
+            "B major",
+            "C major",
+            "C# major",
+            "D major",
+            "D# major"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "jam_tracks",
+      "name": "Jam Tracks",
+      "exercises": [
+        {
+          "title": "El Barco by Karol G",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/6H7Rc/",
+          "key": [
+            "G# minor",
+            "A minor",
+            "A# minor",
+            "F# minor",
+            "G minor"
+          ]
+        },
+        {
+          "title": "Real Life by The Marias",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/BVhXc/",
+          "key": [
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor"
+          ]
+        },
+        {
+          "title": "Soulful Blues Groove Guitar Backing Track Jam in A minor",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/btAvJJT9kys?si=rJc5EXgU0CdHneFG"
+        },
+        {
+          "title": "Blues Jam track in A minor",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/p3uDpehs0ns?si=3HDP-8pQWschab0Q"
+        },
+        {
+          "title": "Smooth Fusion Guitar Backing Track in B Minor",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/PH3Wppp5_Sc?si=RvuHGWSMb6RODKL3"
+        },
+        {
+          "title": "Despicable Beat",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/DFlCc/",
+          "key": [
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor"
+          ]
+        },
+        {
+          "title": "Double or Nothin'",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/RwhXc/",
+          "key": [
+            "F major",
+            "F# major",
+            "G major",
+            "G# major",
+            "A major"
+          ]
+        },
+        {
+          "title": "Weeping Willow",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/KwhXc/",
+          "key": [
+            "A# major",
+            "B major",
+            "C major",
+            "C# major",
+            "D major"
+          ]
+        },
+        {
+          "title": "Mark's Spear",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/GwhXc/",
+          "key": [
+            "G minor",
+            "G# minor",
+            "A minor",
+            "A# minor",
+            "B minor"
+          ]
+        },
+        {
+          "title": "Santana Latin Groove - Guitar Backing Track (Gm Dorian)",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/VPIXYeoRPJE?si=dXI9-yIWNXgaaXux"
+        },
+        {
+          "title": "Funk Guitar Jam Tracking (Key of E) | Scary Pockets-Style",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/w4Be-jQt6Uk?si=jOoabXouMoCDruzI"
+        },
+        {
+          "title": "Funky Guitar Jam Track (Key in G minor) | Fearless Flyers' Style",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/oIs5nPBWDyw?si=kkKVgbWr7GVXf-dU"
+        },
+        {
+          "title": "Funk Guitar Jam Track (key of Eb) | James Brown-inspired Track for Guitar",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/yT-CgzFVH54?si=DNdIOiW71Ani5Ndm"
+        },
+        {
+          "title": "Funk Guitar Jam Track (key of Emi) | Backing Track for Guitar",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/fjuQdcuUOK0?si=oXMrh9vylsMYn5o8"
+        },
+        {
+          "title": "Funk Guitar Jam Track (key of E) | Backing Track for Guitar",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/yz6ScvpjFcQ?si=wXC1G2iw66ZsCbJJ"
+        },
+        {
+          "title": "Funk Guitar Jam Track (in Fmi) | Backing Track for Guitar",
+          "weight": 1,
+          "url": "https://www.youtube.com/embed/tj0X711948I?si=82_3f5w_lTbgydyU"
+        },
+        {
+          "title": "Neo-Soul Guitar Jam Track (key of Ami)",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/hW3szlKqp5Y?si=18u8YmroNrC2WaNj"
+        },
+        {
+          "title": "Funk Guitar Jam Track (key of Am)",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/lvYUNCeOT_s?si=dVkUqAA5EN0BAVCB"
+        },
+        {
+          "title": "Neo-Soul Guitar Jam Track (key of Em)",
+          "weight": 1,
+          "url": "https://www.youtube-nocookie.com/embed/DnU3hrvMPk0?si=VzsGmEQQwL1LXgUA"
+        },
+        {
+          "title": "Can't Help It",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/RzhXc/"
+        },
+        {
+          "title": "First Class - Khruangbin",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/gLTHc/"
+        },
+        {
+          "title": "Corbin's Vibe",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/DzhXc/"
+        },
+        {
+          "title": "Time (You and I) - Khruangbin",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/wB7Hc/"
+        },
+        {
+          "title": "John Mayer Style Neo Soul Blues Jam (C#m)",
+          "weight": 1000,
+          "url": "https://www.youtube-nocookie.com/embed/Z58ChcSz4IQ?si=Rh2rAW5LC1AFlFFU&controls=0"
+        }
+      ]
+    },
+    {
+      "key": "my_songs",
+      "name": "My Songs",
+      "exercises": [
+        {
+          "title": "Salto",
+          "weight": 1
+        },
+        {
+          "title": "Elixir",
+          "weight": 1
+        },
+        {
+          "title": "Doom",
+          "weight": 1
+        },
+        {
+          "title": "Vuelo",
+          "weight": 1
+        },
+        {
+          "title": "Llamada",
+          "weight": 1
+        },
+        {
+          "title": "2025-07-30-bad-batches",
+          "weight": 1
+        },
+        {
+          "title": "2025-07-06-busca-pelota",
+          "weight": 1
+        },
+        {
+          "title": "2024-10-27 houli-tems",
+          "weight": 1
+        },
+        {
+          "title": "2024-10-10-mischin",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "instrument": "Bass",
+  "categories": [
+    {
+      "key": "bass_warm_up",
+      "name": "Warm Up",
+      "exercises": [
+        {
+          "title": "One Finger Per Fret",
+          "weight": 1,
+          "metronome_range": [
+            80,
+            140
+          ],
+          "description": "Play 1234 fingers up and down the strings. Work on keeping your fingers close to the strings when not playing, and keep as little silence as possible between notes."
+        },
+        {
+          "title": "One Finger Per Fret (4321)",
+          "weight": 1,
+          "metronome_range": [
+            80,
+            140
+          ],
+          "description": "Here's a variation of the 1234 finger exercise that runs the pattern backwards, playing 4321 fingers in the process."
+        },
+        {
+          "title": "One Finger Per Fret (2341)",
+          "weight": 1,
+          "metronome_range": [
+            80,
+            140
+          ],
+          "description": "Here's a variation of the 1234 finger exercise that starts on your second finger and plays 2341 from there."
+        },
+        {
+          "title": "One Finger Per Fret (3412)",
+          "weight": 1,
+          "metronome_range": [
+            80,
+            140
+          ],
+          "description": "Here's a variation of the 1234 finger exercise where you play 3412 fingers up and down the strings."
+        },
+        {
+          "title": "One Finger Per Fret (4123)",
+          "weight": 1,
+          "metronome_range": [
+            80,
+            140
+          ],
+          "description": "Here's a variation of the 1234 finger exercise that uses the fingers 4123 up and down all 6 strings"
+        },
+        {
+          "title": "One Finger Per Fret (1243)",
+          "weight": 1,
+          "metronome_range": [
+            80,
+            140
+          ],
+          "description": "Here's a variation of the 1234 finger exercise that begins with your 1st and 2nd fingers, then reverses the last two, forming a 1243 pattern."
+        },
+        {
+          "title": "One Finger Per Fret (1342)",
+          "weight": 1,
+          "metronome_range": [
+            80,
+            140
+          ],
+          "description": "Here's a variation of the 1234 finger exercise that uses the fingering 1342 up and down the strings."
+        }
+      ]
+    },
+    {
+      "key": "bass_jam_tracks",
+      "name": "Jam Tracks",
+      "exercises": [
+        {
+          "title": "Corbin's Vibe",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/DzhXc/",
+          "key": [
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor"
+          ]
+        },
+        {
+          "title": "Can't Help It",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/RzhXc/",
+          "key": [
+            "G major",
+            "G# major",
+            "A major",
+            "A# major",
+            "B major"
+          ]
+        },
+        {
+          "title": "First Class - Khruangbin",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/gLTHc/"
+        },
+        {
+          "title": "Time (You and I) - Khruangbin",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/wB7Hc/"
+        },
+        {
+          "title": "Pelota - Khruangbin",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/bgGHc/"
+        },
+        {
+          "title": "PIToRRO DE COCO - Bad Bunny",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

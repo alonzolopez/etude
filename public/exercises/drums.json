@@ -1,0 +1,126 @@
+{
+  "instrument": "Drums",
+  "categories": [
+    {
+      "key": "drum_grooves",
+      "name": "Drum Grooves",
+      "exercises": [
+        {
+          "title": "Syncopated Funk Groove #1",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=1&MetronomeFreq=4&H=|x-x-x-x-x-x-x-x-|&S=|-o--O----o--O---|&K=|o--o----o--o----|&Stickings=|ccccc-c-ccccc-c-|",
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Syncopated Funk Groove #2",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=1&MetronomeFreq=4&H=|x-x-x-x-x-x-x-x-|&S=|----O--o----O--o|&K=|o----o--o----o--|&Stickings=|c-c-ccccc-c-c-cc|",
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Syncopated Funk Groove #3",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=1&MetronomeFreq=4&H=|x-x-x-x-x-x-x-x-|&S=|-o--O--o-o--O---|&K=|o--o-o--o--o----|&Stickings=|ccccccccccccc-c-|",
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "Syncopated Funk Groove #4",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=1&MetronomeFreq=4&H=|x-x-x-x-x-x-x-x-|&S=|-o--O--o-o--O---|&K=|o--o-o--o--o----|&Stickings=|ccccccccccccc-c-|",
+          "metronome_range": [
+            60,
+            130
+          ]
+        },
+        {
+          "title": "The Gadson Groove",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=1&MetronomeFreq=4&H=|XxXxXxXxXxXxXxXx|&S=|----O-------O---|&K=|o-------o-------|&Stickings=|cccccccccccccccc|",
+          "metronome_range": [
+            60,
+            100
+          ]
+        },
+        {
+          "title": "The Gadson Groove - Variation #1",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=1&MetronomeFreq=4&H=|XxXxXxXxXxXxXxXx|&S=|----O-------O---|&K=|o------oo-o-----|&Stickings=|cccccccccccccccc|",
+          "metronome_range": [
+            60,
+            100
+          ]
+        },
+        {
+          "title": "The Gadson Groove - Variation #2",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=1&MetronomeFreq=4&H=|XxXxXxXxXxXxXxXx|&S=|----O-------O---|&K=|o-oo-o-oo-o-----|&Stickings=|cccccccccccccccc|",
+          "metronome_range": [
+            60,
+            100
+          ]
+        },
+        {
+          "title": "The Grid System - Kick Singles",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=4&MetronomeFreq=4&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|&K=|o---o---o---o---|-o---o---o---o--|--o---o---o---o-|---o---o---o---o|",
+          "metronome_range": [
+            60,
+            100
+          ]
+        },
+        {
+          "title": "The Grid System - Kick Doubles",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=4&MetronomeFreq=4&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|&K=|oo--oo--oo--oo--|-oo--oo--oo--oo-|--oo--oo--oo--oo|---oo--oo--oo--o|",
+          "metronome_range": [
+            60,
+            100
+          ]
+        },
+        {
+          "title": "The Grid System - Kick Singles and Doubles",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=80&Measures=8&MetronomeFreq=4&H=|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|x-x-x-x-x-x-x-x-|&S=|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|----O-------O---|&K=|o---o---o---o---|-o---o---o---o--|--o---o---o---o-|---o---o---o---o|oo--oo--oo--oo--|-oo--oo--oo--oo-|--oo--oo--oo--oo|---oo--oo--oo--o|",
+          "metronome_range": [
+            60,
+            100
+          ]
+        },
+        {
+          "title": "Intro to Ghost Notes",
+          "weight": 1,
+          "url": "https://www.mikeslessons.com/groove/?Mode=view&TimeSig=4/4&Div=16&Tempo=85&Measures=1&H=|x-x---x-x-x---x-|&S=|-g-gOg-g-g-gOg-g|&K=|o-------o-------|&Stickings=|RLRLRLRLRLRLRLRL|",
+          "metronome_range": [
+            60,
+            130
+          ]
+        }
+      ]
+    },
+    {
+      "key": "drum_jam_tracks",
+      "name": "Jam Tracks",
+      "exercises": [
+        {
+          "title": "First Class - Khruangbin",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/gLTHc/"
+        },
+        {
+          "title": "Time (You and I) - Khruangbin",
+          "weight": 1,
+          "url": "https://www.soundslice.com/slices/wB7Hc/"
+        }
+      ]
+    }
+  ]
+}

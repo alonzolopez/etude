@@ -1,0 +1,22 @@
+{
+  "instruments": [
+    {
+      "id": "guitar",
+      "name": "Guitar",
+      "file": "guitar.json",
+      "hotkey": "g"
+    },
+    {
+      "id": "bass",
+      "name": "Bass",
+      "file": "bass.json",
+      "hotkey": "b"
+    },
+    {
+      "id": "drums",
+      "name": "Drums",
+      "file": "drums.json",
+      "hotkey": "d"
+    }
+  ]
+}
