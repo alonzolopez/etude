@@ -1,0 +1,49 @@
+:root {
+  --ground: #f7f2e7;
+  --surface: #f1ead9;
+  --ink: #1e1b16;
+  --muted: #8d8371;
+  --line: #d9d1bd;
+  --accent: #b5442e;
+  --amber: #c8811f;
+  --amber-readout: #b1720f;
+  --metro-card: var(--surface);
+  --metro-ink: var(--ink);
+  --font-display: Fraunces, Georgia, serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --radius: 4px;
+  --radius-hw: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --ground: #1d1a15;
+    --surface: #262118;
+    --ink: #ece5d4;
+    --muted: #94897a;
+    --line: #363028;
+    --accent: #cf5a41;
+    --amber: #e89b3c;
+    --amber-readout: #e89b3c;
+    --metro-card: #221d17;
+    --metro-ink: #ede4d3;
+  }
+}
+:root[data-theme='dark'] {
+  --ground: #1d1a15;
+  --surface: #262118;
+  --ink: #ece5d4;
+  --muted: #94897a;
+  --line: #363028;
+  --accent: #cf5a41;
+  --amber: #e89b3c;
+  --amber-readout: #e89b3c;
+  --metro-card: #221d17;
+  --metro-ink: #ede4d3;
+}
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+}

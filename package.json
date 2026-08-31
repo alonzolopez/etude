@@ -1,0 +1,25 @@
+{
+  "name": "etude",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jsdom": "^27.0.1",
+    "typescript": "^7.0.2",
+    "vite": "^7.3.6",
+    "vite-plugin-static-copy": "^3.4.0",
+    "vitest": "^3.2.7"
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.8.4"
+  }
+}
