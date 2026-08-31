@@ -290,6 +290,29 @@
             130
           ],
           "description": "Remember that the dominant diminished scale is the 7th mode of the diminished scale. It alternates half and whole steps and is usually used to play over dominant 7b9 chords."
+        },
+        {
+          "title": "The Altered Scale",
+          "weight": 1,
+          "file": "notation/the-altered-scale.gpx",
+          "key": [
+            "A altered",
+            "A# altered",
+            "B altered",
+            "C altered",
+            "C# altered",
+            "D altered",
+            "D# altered",
+            "E altered",
+            "F altered",
+            "F# altered",
+            "G altered",
+            "G# altered"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ]
         }
       ]
     },
