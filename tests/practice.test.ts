@@ -4,8 +4,13 @@ import { SessionTimer } from '../src/session';
 import { Hotkeys } from '../src/hotkeys';
 import type { ExerciseInstance } from '../src/exercises';
 
+const notationPlayer = vi.hoisted(() => ({
+  controllable: true,
+  play: vi.fn(), pause: vi.fn(), toggle: vi.fn(), setVolume: vi.fn(), destroy: vi.fn(),
+}));
+
 vi.mock('../src/notation', () => ({
-  mountNotation: vi.fn(() => ({ player: { controllable: true, play() {}, pause() {}, toggle() {}, setVolume() {}, destroy() {} }, destroy() {} })),
+  mountNotation: vi.fn(() => ({ player: notationPlayer, destroy: vi.fn() })),
 }));
 
 const deps = (): PracticeDeps => ({
@@ -78,6 +83,14 @@ describe('renderPractice content area', () => {
   it('unknown url hosts render a plain iframe', () => {
     const app = render({ url: 'https://www.mikeslessons.com/groove/?x' });
     expect(app.querySelector('iframe')).toBeTruthy();
+  });
+
+  it('hands the stored session volume to the player at mount (spec §4.1)', () => {
+    notationPlayer.setVolume.mockClear();
+    const app = render({ file: 'notation/test-lick.alphatex' });
+    // deps().getVolume() is 80: the embed must not start at its own default
+    expect(notationPlayer.setVolume).toHaveBeenCalledWith(80);
+    expect(app.querySelector<HTMLInputElement>('[data-vol]')!.value).toBe('80');
   });
 
   it('text renders the description large, never an empty frame', () => {

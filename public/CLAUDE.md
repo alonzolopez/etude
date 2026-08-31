@@ -4,7 +4,8 @@
 Each instrument file: `{"instrument": name, "categories": [{key, name, exercises}]}`.
 Category order = wizard display order; category keys unique per file.
 
-Exercise fields: `title`* , `weight`* (>0), `url`, `file`, `key[]`, `mode[]`,
+Exercise fields: `title`* , `weight`* (≥0; 0 = disabled, never drawn), `url`,
+`file`, `key[]`, `mode[]`,
 `metronome_range [lo, hi]`, `description`. Type by field: `file` → alphaTab
 notation, path under `notation/` (GPX preferred for Soundslice exports; MusicXML
 and alphaTex also supported — alphaTex is the format for newly authored

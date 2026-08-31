@@ -120,6 +120,10 @@ export function renderPractice(
 
   const volEl = app.querySelector<HTMLInputElement>('[data-vol]')!;
   volEl.value = String(deps.getVolume());
+  // The one session volume drives the current player (spec §4.1) from the start,
+  // not just once the slider is touched: a new embed must never open at its own
+  // default. (The YouTube adapter replays this after its widget loads.)
+  player.setVolume(deps.getVolume());
   const applyVolume = (v: number) => {
     deps.setVolume(v);
     player.setVolume(v);

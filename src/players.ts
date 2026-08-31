@@ -29,17 +29,27 @@ export function createYouTubePlayer(iframe: HTMLIFrameElement): Player {
       JSON.stringify({ event: 'command', func, args }),
       origin,
     );
-  // handshake so the widget accepts commands
-  iframe.addEventListener('load', () =>
-    iframe.contentWindow?.postMessage(JSON.stringify({ event: 'listening', id: 'etude' }), origin),
-  );
   let playing = false;
+  // The session volume is applied at mount, before the widget has booted, and
+  // commands sent that early are dropped — so remember it and replay it with the
+  // handshake (spec §4.1: one session volume drives the current player).
+  let volume: number | null = null;
+
+  // handshake so the widget accepts commands
+  iframe.addEventListener('load', () => {
+    iframe.contentWindow?.postMessage(JSON.stringify({ event: 'listening', id: 'etude' }), origin);
+    if (volume !== null) send('setVolume', [volume]);
+  });
+
   return {
     controllable: true,
     play() { send('playVideo'); playing = true; },
     pause() { send('pauseVideo'); playing = false; },
     toggle() { playing ? this.pause() : this.play(); },
-    setVolume(v: number) { send('setVolume', [Math.max(0, Math.min(100, v))]); },
+    setVolume(v: number) {
+      volume = Math.max(0, Math.min(100, v));
+      send('setVolume', [volume]);
+    },
     destroy() {},
   };
 }

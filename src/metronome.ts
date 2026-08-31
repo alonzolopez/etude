@@ -72,7 +72,12 @@ export class Metronome {
   }
 
   get bpm(): number { return this.scheduler.bpm; }
-  setBpm(v: number): void { this.scheduler.bpm = Math.max(20, Math.min(400, Math.round(v))); }
+  setBpm(v: number): void {
+    // NaN/Infinity (e.g. a corrupt etude.bpm) would poison every beat
+    // computation and silently stop the scheduler: ignore it, keep the bpm.
+    if (!Number.isFinite(v)) return;
+    this.scheduler.bpm = Math.max(20, Math.min(400, Math.round(v)));
+  }
   get running(): boolean { return this.scheduler.running; }
 
   start(): void {

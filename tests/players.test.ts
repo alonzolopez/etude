@@ -92,6 +92,37 @@ describe('createYouTubePlayer', () => {
     );
   });
 
+  it('re-sends the last volume once the widget loads', () => {
+    // Commands posted before the iframe boots are dropped, so the session volume
+    // applied at mount has to be replayed alongside the listening handshake.
+    const iframe = makeIframe();
+    const postMessage = vi.spyOn(iframe.contentWindow!, 'postMessage');
+    const player = createYouTubePlayer(iframe);
+
+    player.setVolume(30);
+    postMessage.mockClear();
+    iframe.dispatchEvent(new Event('load'));
+
+    expect(postMessage).toHaveBeenCalledWith(
+      JSON.stringify({ event: 'listening', id: 'etude' }),
+      ORIGIN,
+    );
+    expect(postMessage).toHaveBeenLastCalledWith(
+      JSON.stringify({ event: 'command', func: 'setVolume', args: [30] }),
+      ORIGIN,
+    );
+  });
+
+  it('sends no volume on load when none was ever set', () => {
+    const iframe = makeIframe();
+    const postMessage = vi.spyOn(iframe.contentWindow!, 'postMessage');
+    createYouTubePlayer(iframe);
+
+    iframe.dispatchEvent(new Event('load'));
+
+    expect(postMessage).toHaveBeenCalledTimes(1); // the handshake only
+  });
+
   it('toggle() alternates between play and pause payloads', () => {
     const iframe = makeIframe();
     const postMessage = vi.spyOn(iframe.contentWindow!, 'postMessage');

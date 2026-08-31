@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
 const read = (f: string) => JSON.parse(readFileSync(`public/exercises/${f}`, 'utf8'));
 
@@ -19,6 +19,24 @@ describe('content files', () => {
       it('has uniquely keyed categories', () => {
         const keys = data.categories.map((c: any) => c.key);
         expect(new Set(keys).size).toBe(keys.length);
+      });
+
+      it('has no empty category', () => {
+        // The wizard offers every category; picking an empty one would draw
+        // undefined and throw on start. This is the gate that prevents it.
+        const empty = data.categories
+          .filter((c: any) => !c.exercises?.length)
+          .map((c: any) => c.key);
+        expect(empty).toEqual([]);
+      });
+
+      it('every notation file exists under public/', () => {
+        const missing: string[] = [];
+        for (const cat of data.categories)
+          for (const ex of cat.exercises)
+            if (ex.file && !existsSync(`public/${ex.file}`))
+              missing.push(`${cat.key} / ${ex.title}: ${ex.file}`);
+        expect(missing).toEqual([]);
       });
 
       it('every exercise is schema-valid', () => {

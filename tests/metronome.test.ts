@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { BeatScheduler } from '../src/metronome';
+import { BeatScheduler, Metronome } from '../src/metronome';
 
 describe('BeatScheduler', () => {
   it('schedules drift-free beats at exact multiples of the interval', () => {
@@ -40,5 +40,27 @@ describe('BeatScheduler', () => {
     expect(times).toEqual([0.05]);
     s.start(); s.tick();
     expect(times).toEqual([0.05, 10.05]);
+  });
+});
+
+describe('Metronome.setBpm', () => {
+  const make = () => new Metronome(
+    { currentTime: 0 } as unknown as AudioContext,
+    {} as AudioBuffer,
+    {} as GainNode,
+  );
+
+  it('clamps to 20..400 and ignores non-finite input', () => {
+    const m = make();
+    m.setBpm(90);
+    expect(m.bpm).toBe(90);
+    m.setBpm(1000);
+    expect(m.bpm).toBe(400);
+    m.setBpm(90);
+    // a corrupt etude.bpm ("" -> NaN) must not silently brick the scheduler
+    m.setBpm(Number.NaN);
+    expect(m.bpm).toBe(90);
+    m.setBpm(Number.POSITIVE_INFINITY);
+    expect(m.bpm).toBe(90);
   });
 });

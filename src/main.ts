@@ -14,9 +14,14 @@ const app = document.querySelector<HTMLDivElement>('#app')!;
 applyTheme();
 
 // ---- audio (lazy: first user gesture, spec §6) ----
-let audio: { ctx: AudioContext; metronome: Metronome; chime: () => void; gain: GainNode } | null = null;
-async function ensureAudio(): Promise<NonNullable<typeof audio>> {
-  if (audio) { void audio.ctx.resume(); return audio; }
+interface Audio { ctx: AudioContext; metronome: Metronome; chime: () => void; gain: GainNode }
+// `audio` is the resolved value for the synchronous readers; `audioPromise` makes
+// init single-flight, so key-repeat on `enter` at the first start cannot open a
+// second AudioContext while the first is still decoding the click.
+let audio: Audio | null = null;
+let audioPromise: Promise<Audio> | null = null;
+
+async function initAudio(): Promise<Audio> {
   const ctx = new AudioContext();
   const gain = ctx.createGain();
   gain.connect(ctx.destination);
@@ -24,9 +29,18 @@ async function ensureAudio(): Promise<NonNullable<typeof audio>> {
   const buf = await fetch(`${import.meta.env.BASE_URL}click.mp3`)
     .then((r) => r.arrayBuffer())
     .then((b) => ctx.decodeAudioData(b));
-  audio = { ctx, gain, metronome: new Metronome(ctx, buf, gain), chime: createChime(ctx, gain) };
-  audio.metronome.setBpm(Number(readStore('etude.bpm') ?? '100')); // spec §9.2 last-bpm
-  return audio;
+  const a: Audio = { ctx, gain, metronome: new Metronome(ctx, buf, gain), chime: createChime(ctx, gain) };
+  a.metronome.setBpm(Number(readStore('etude.bpm') ?? '100')); // spec §9.2 last-bpm
+  audio = a;
+  return a;
+}
+
+function ensureAudio(): Promise<Audio> {
+  if (audio) { void audio.ctx.resume(); return Promise.resolve(audio); }
+  // Drop a failed attempt so a later gesture can retry instead of being stuck
+  // awaiting a permanently rejected promise.
+  audioPromise ??= initAudio().catch((err: unknown) => { audioPromise = null; throw err; });
+  return audioPromise;
 }
 
 function getVolume(): number { return Number(readStore('etude.volume') ?? '80'); }
