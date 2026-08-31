@@ -24,6 +24,7 @@ export function renderWizard(
 ): { showStep(n: number): void } {
   let instrument: Instrument | null = null;
   let content: InstrumentContent | null = null;
+  let lastCategory: Category | null = null;
 
   const kbd = (k: string) => `<kbd class="kbd">${k}</kbd>`;
 
@@ -75,6 +76,7 @@ export function renderWizard(
   function showStep3(category: Category): void {
     deps.hotkeys.clear();
     deps.onStepChange?.(3);
+    lastCategory = category;
     const last = readStore('etude.duration') ?? '5';
     frame(3, 'how many minutes?', `
       <div class="duration-row">
@@ -96,8 +98,9 @@ export function renderWizard(
     });
 
     const start = () => {
-      const minutes = Number.parseInt(box.value, 10);
-      if (!Number.isInteger(minutes) || minutes < 1 || minutes > 600) {
+      const raw = box.value.trim();
+      const minutes = Number.parseInt(raw, 10);
+      if (!/^\d+$/.test(raw) || minutes < 1 || minutes > 600) {
         error.textContent = 'Enter minutes as a whole number from 1 to 600.';
         return;
       }
@@ -112,5 +115,13 @@ export function renderWizard(
 
   showStep1();
   if (startStep > 1) { /* deep re-entry unsupported by design: refresh → wizard step 1 (spec §3.3) */ }
-  return { showStep: (n) => { if (n === 1) showStep1(); else if (n === 2 && content) showStep2(); } };
+  return {
+    showStep: (n) => {
+      if (n === 1) showStep1();
+      else if (n === 2 && content) showStep2();
+      else if (n === 3 && lastCategory) showStep3(lastCategory);
+      else if (n === 3 && content) showStep2();
+      else if (n === 3) showStep1();
+    },
+  };
 }

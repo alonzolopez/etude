@@ -11,7 +11,7 @@ const content: InstrumentContent = {
   ],
 };
 
-function setup(onStart: (s: SessionSelection) => void) {
+function setup(onStart: (s: SessionSelection) => void, onStepChange?: (step: number) => void) {
   document.body.innerHTML = '<div id="app"></div>';
   localStorage.clear();
   const hotkeys = new Hotkeys();
@@ -20,9 +20,10 @@ function setup(onStart: (s: SessionSelection) => void) {
     loadContent: vi.fn(async () => content),
     hotkeys,
     onStart,
+    onStepChange,
   };
-  renderWizard(document.getElementById('app')!, deps);
-  return { hotkeys, app: document.getElementById('app')! };
+  const handle = renderWizard(document.getElementById('app')!, deps);
+  return { hotkeys, app: document.getElementById('app')!, handle };
 }
 
 const press = (hk: Hotkeys, k: string) =>
@@ -69,5 +70,61 @@ describe('wizard', () => {
     press(hotkeys, 'Enter');
     expect(onStart).not.toHaveBeenCalled();
     expect(app.querySelector('.wizard-error')?.textContent).toContain('minutes');
+  });
+
+  it('rejects "15abc" — a parseInt-truncation loophole — with an inline message', async () => {
+    const onStart = vi.fn();
+    const { hotkeys, app } = setup(onStart);
+    press(hotkeys, 'g');
+    await vi.waitFor(() => expect(app.textContent).toContain('Scales'));
+    press(hotkeys, '1');
+    await vi.waitFor(() => expect(app.querySelector('input')).toBeTruthy());
+    (app.querySelector('input') as HTMLInputElement).value = '15abc';
+    press(hotkeys, 'Enter');
+    expect(onStart).not.toHaveBeenCalled();
+    expect(app.querySelector('.wizard-error')?.textContent).toContain('minutes');
+  });
+
+  it('escape on step 2 returns to step 1', async () => {
+    const onStart = vi.fn();
+    const { hotkeys, app } = setup(onStart);
+    press(hotkeys, 'g');
+    await vi.waitFor(() => expect(app.textContent).toContain('Scales'));
+    press(hotkeys, 'Escape');
+    await vi.waitFor(() => expect(app.textContent).toContain('Guitar'));
+    expect(app.textContent).not.toContain('Scales');
+  });
+
+  it('escape on step 1 is a no-op', () => {
+    const onStart = vi.fn();
+    const { hotkeys, app } = setup(onStart);
+    expect(app.textContent).toContain('Guitar');
+    press(hotkeys, 'Escape');
+    expect(app.textContent).toContain('Guitar');
+  });
+
+  it('calls onStepChange with 1, 2, 3 as the user walks forward', async () => {
+    const onStepChange = vi.fn();
+    const { hotkeys, app } = setup(vi.fn(), onStepChange);
+    expect(onStepChange).toHaveBeenNthCalledWith(1, 1);
+    press(hotkeys, 'g');
+    await vi.waitFor(() => expect(app.textContent).toContain('Scales'));
+    expect(onStepChange).toHaveBeenNthCalledWith(2, 2);
+    press(hotkeys, '1');
+    await vi.waitFor(() => expect(app.querySelector('input')).toBeTruthy());
+    expect(onStepChange).toHaveBeenNthCalledWith(3, 3);
+  });
+
+  it('showStep(3) re-renders the duration step after it has been visited', async () => {
+    const onStart = vi.fn();
+    const { hotkeys, app, handle } = setup(onStart);
+    press(hotkeys, 'g');
+    await vi.waitFor(() => expect(app.textContent).toContain('Scales'));
+    press(hotkeys, '1');
+    await vi.waitFor(() => expect(app.querySelector('input')).toBeTruthy());
+    handle.showStep(1);
+    expect(app.querySelector('input')).toBeFalsy();
+    handle.showStep(3);
+    expect(app.querySelector('input')).toBeTruthy();
   });
 });
