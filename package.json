@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@coderline/alphatab-vite": "^1.8.4",
     "@types/node": "^26.4.0",
     "jsdom": "^27.0.1",
     "typescript": "^7.0.2",
