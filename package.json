@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/node": "^26.4.0",
     "jsdom": "^27.0.1",
     "typescript": "^7.0.2",
     "vite": "^7.3.6",
