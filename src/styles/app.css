@@ -29,3 +29,42 @@
 .wizard-error { color: var(--accent); min-height: 1.2em; font-size: 15px; }
 .wizard-hint { color: var(--muted); font-size: 13px; margin-top: 28px; }
 body.keys-disarmed .kbd { opacity: 0.35; }
+
+/* ---- practice screen ---- */
+.practice { display: flex; flex-direction: column; height: 100dvh; }
+.p-top { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px 24px 12px; gap: 16px; }
+.p-title { font-family: var(--font-display); font-size: clamp(24px, 4vw, 34px); margin: 0; line-height: 1.05; }
+.p-key { color: var(--accent); font-style: italic; margin: 6px 0 0; font-size: 16px; }
+.p-timer { font-size: 22px; font-variant-numeric: tabular-nums; color: var(--muted); }
+.p-timer.overtime { color: var(--accent); }
+.p-content { flex: 1; margin: 0 24px; min-height: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: auto; position: relative; }
+.p-content iframe { width: 100%; height: 100%; border: 0; display: block; }
+.text-content { font-size: clamp(20px, 3vw, 28px); max-width: 30em; margin: 10vh auto; padding: 0 24px; text-align: center; }
+.ss-card { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 12vh 24px 0; text-align: center; }
+.ss-card .wizard-btn { font-size: 24px; padding: 20px 32px; text-decoration: none; }
+.ss-note { color: var(--muted); max-width: 40em; }
+.p-bottom { display: flex; align-items: center; gap: 18px; padding: 14px 24px 18px; }
+.metro { display: flex; align-items: center; gap: 14px; background: var(--metro-card); color: var(--metro-ink); border: 1px solid var(--line); border-radius: var(--radius-hw); padding: 10px 16px; }
+.lamp { width: 14px; height: 14px; border-radius: 50%; background: var(--amber); opacity: 0.35; }
+.lamp.flash { animation: lampflash 0.15s ease-out; }
+@keyframes lampflash { 0% { opacity: 1; box-shadow: 0 0 14px 3px var(--amber); } 100% { opacity: 0.35; box-shadow: none; } }
+@media (prefers-reduced-motion: reduce) { .lamp.flash { animation: none; } }
+.bpm { font-family: var(--font-mono); font-size: 34px; font-variant-numeric: tabular-nums; color: var(--amber-readout); }
+.bpm small { display: block; font-size: 10px; letter-spacing: 0.16em; color: var(--muted); }
+.stepper { display: flex; flex-direction: column; gap: 5px; }
+.stepper button, .playbtn { min-width: 34px; min-height: 26px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 5px; font-size: 15px; cursor: pointer; }
+.playbtn { min-width: 48px; min-height: 56px; font-size: 18px; }
+.vol { display: flex; align-items: center; gap: 6px; color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+.vol input { accent-color: var(--accent); width: 90px; }
+.spacer { flex: 1; }
+.transport { display: flex; gap: 12px; align-items: center; }
+.navbtn { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.navbtn button { font-family: var(--font-display); font-size: 17px; min-height: 56px; padding: 0 22px; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; }
+.navbtn.primary button { background: var(--accent); color: var(--ground); border-color: var(--accent); }
+
+/* ---- theme toggle (both screens, deliberately quiet) ---- */
+.theme-toggle {
+  position: fixed; bottom: 10px; left: 10px;
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+  background: none; border: none; cursor: pointer; opacity: 0.7;
+}

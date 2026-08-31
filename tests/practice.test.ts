@@ -1,0 +1,67 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { renderPractice, type PracticeDeps } from '../src/screens/practice';
+import { SessionTimer } from '../src/session';
+import { Hotkeys } from '../src/hotkeys';
+import type { ExerciseInstance } from '../src/exercises';
+
+vi.mock('../src/notation', () => ({
+  mountNotation: vi.fn(() => ({ player: { controllable: true, play() {}, pause() {}, toggle() {}, setVolume() {}, destroy() {} }, destroy() {} })),
+}));
+
+const deps = (): PracticeDeps => ({
+  hotkeys: new Hotkeys(),
+  onNext: vi.fn(), onPrev: vi.fn(), onHome: vi.fn(), onBpmChange: vi.fn(),
+  metronome: null,
+  getVolume: () => 80, setVolume: vi.fn(),
+});
+
+const base: ExerciseInstance = {
+  category: { key: 'c', name: 'C' },
+  exercise: { title: 'Minor Pentatonic', weight: 1 },
+  key: 'A minor', mode: 5, bpm: 98,
+};
+
+function render(over: Partial<ExerciseInstance['exercise']>, instOver: Partial<ExerciseInstance> = {}) {
+  document.body.innerHTML = '<div id="app"></div>';
+  const inst = { ...base, ...instOver, exercise: { ...base.exercise, ...over } };
+  const timer = new SessionTimer(5, () => 0);
+  renderPractice(document.getElementById('app')!, inst, timer, deps());
+  return document.getElementById('app')!;
+}
+
+describe('renderPractice content area', () => {
+  beforeEach(() => { document.body.innerHTML = ''; });
+
+  it('renders title, key line, and bpm readout', () => {
+    const app = render({});
+    expect(app.textContent).toContain('Minor Pentatonic');
+    expect(app.textContent).toContain('A minor · mode 5');
+    expect(app.querySelector('.bpm')?.textContent).toContain('98');
+  });
+
+  it('soundslice renders a card with an external link, no iframe', () => {
+    const app = render({ url: 'https://www.soundslice.com/slices/xFhXc/' });
+    const a = app.querySelector('a[target="_blank"]') as HTMLAnchorElement;
+    expect(a.href).toContain('soundslice.com');
+    expect(a.rel).toContain('noopener');
+    expect(app.querySelector('iframe')).toBeNull();
+  });
+
+  it('youtube renders an iframe with enablejsapi, preserving existing params', () => {
+    const app = render({ url: 'https://www.youtube-nocookie.com/embed/x?si=abc' });
+    const f = app.querySelector('iframe') as HTMLIFrameElement;
+    expect(f.src).toContain('si=abc');
+    expect(f.src).toContain('enablejsapi=1');
+  });
+
+  it('unknown url hosts render a plain iframe', () => {
+    const app = render({ url: 'https://www.mikeslessons.com/groove/?x' });
+    expect(app.querySelector('iframe')).toBeTruthy();
+  });
+
+  it('text renders the description large, never an empty frame', () => {
+    const app = render({ description: 'Practice slowly.' });
+    expect(app.querySelector('.text-content')?.textContent).toContain('Practice slowly.');
+    expect(app.querySelector('iframe')).toBeNull();
+  });
+});
