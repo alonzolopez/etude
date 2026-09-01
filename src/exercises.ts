@@ -134,14 +134,20 @@ export function materialize(
 
 const base = () => import.meta.env.BASE_URL;
 
+// Content files under public/ are unhashed and GitHub Pages serves them
+// `max-age=600`, so a pushed edit stays invisible for up to 10 minutes.
+// 'no-cache' revalidates instead of re-downloading: the responses carry ETags,
+// so an unchanged file costs a 304, not its bytes.
+const REVALIDATE: RequestInit = { cache: 'no-cache' };
+
 export async function loadIndex(): Promise<Instrument[]> {
-  const res = await fetch(`${base()}exercises/index.json`);
+  const res = await fetch(`${base()}exercises/index.json`, REVALIDATE);
   if (!res.ok) throw new Error(`exercises index: HTTP ${res.status}`);
   return (await res.json()).instruments as Instrument[];
 }
 
 export async function loadInstrument(file: string): Promise<InstrumentContent> {
-  const res = await fetch(`${base()}exercises/${file}`);
+  const res = await fetch(`${base()}exercises/${file}`, REVALIDATE);
   if (!res.ok) throw new Error(`${file}: HTTP ${res.status}`);
   return (await res.json()) as InstrumentContent;
 }

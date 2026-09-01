@@ -34,7 +34,7 @@ export function mountNotation(container: HTMLElement, filePath: string): Notatio
   };
   const api = new alphaTab.AlphaTabApi(container, settings);
   if (isTex) {
-    void fetch(`${base}${filePath}`)
+    void fetch(`${base}${filePath}`, { cache: 'no-cache' }) // unhashed under public/; see exercises.ts REVALIDATE
       .then((r) => { if (!r.ok) throw new Error(`${filePath}: HTTP ${r.status}`); return r.text(); })
       .then((tex) => api.tex(tex));
   }
