@@ -12,11 +12,29 @@ push to master. Design spec: `docs/spec.md` — read it before changing behavior
 ## Content editing
 Exercises live in `public/exercises/` (see `public/CLAUDE.md` for the schema).
 Edit → commit → push → live in ~1 min. No app code changes needed.
-Converting a Soundslice exercise to inline notation, or adding a new notation
-exercise: use the `convert-soundslice` skill (`.claude/skills/convert-soundslice/`)
-rather than hand-editing — it parse-validates the export with alphaTab before
-touching any JSON, and refuses song-synced jam-track slices, which stay Soundslice
-cards permanently (spec §2.2).
+Use a skill rather than hand-editing — both parse-validate with alphaTab before
+touching any JSON, and both refuse song-synced jam-track slices, which stay
+Soundslice cards permanently (spec §2.2):
+- **`create-alphatex`** — writing notation from a description (a scale, lick,
+  groove, positional variant). Settles the music with you first, then authors
+  alphaTex against a verified syntax reference.
+- **`convert-soundslice`** — an export or notation file already exists.
+
+Shared tooling in `.claude/skills/_notation/scripts/`: `find-exercise`,
+`validate-notation` (parses), `describe-score` (reads the notes back out as
+pitches), `add-exercise` (the only thing that should write `public/exercises/*.json`
+— they are 2-space with no trailing newline).
+
+## Previewing notation
+`preview.html` renders notation files through the production path
+(`src/notation.ts`) without playing a practice session. Dev-only — Vite's build
+input is `index.html`, so it never reaches `dist/`.
+```
+npm run dev
+# one or more files, paths written exactly as an exercise's `file` field:
+http://localhost:5173/etude/preview.html?files=notation/a.alphatex,notation/b.alphatex
+# no ?files= lists every notation exercise in the content files
+```
 
 ## Hotkeys
 Wizard: `g/b/d` instrument · `1–9` category · `1–5` duration presets ·

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>etude — notation preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap" />
+  </head>
+  <body>
+    <!--
+      Dev-only harness for looking at ONE exercise's notation without playing
+      through a practice session. Vite's default build input is index.html, so
+      this file is served by `npm run dev` and never lands in dist/.
+
+          npm run dev
+          http://localhost:5173/etude/preview.html?files=notation/foo.alphatex,notation/bar.alphatex
+
+      Paths are written exactly as an exercise's `file` field is (relative to
+      public/), so what you paste here is what goes in the JSON. With no ?files=
+      it lists every notation exercise in the content files.
+
+      It renders through src/notation.ts — the same mountNotation() the practice
+      screen uses — so this is the production render path, not a lookalike.
+    -->
+    <header>
+      <h1>notation preview</h1>
+      <div class="controls">
+        <button id="theme" type="button" title="Notation colors come from the CSS tokens, so switching remounts each score">theme: auto</button>
+      </div>
+    </header>
+    <main id="main"></main>
+
+    <script type="module">
+      import './src/styles/tokens.css';
+      import { mountNotation } from './src/notation.ts';
+
+      const main = document.getElementById('main');
+      const params = new URLSearchParams(location.search);
+      const files = (params.get('files') ?? '')
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      // --- theme ---------------------------------------------------------------
+      // mountNotation() reads the color tokens once via getComputedStyle at mount
+      // time, so a theme change has to remount or the staff keeps the old ink.
+      const MODES = ['auto', 'light', 'dark'];
+      let modeIdx = 0;
+      const themeBtn = document.getElementById('theme');
+      themeBtn.addEventListener('click', () => {
+        modeIdx = (modeIdx + 1) % MODES.length;
+        const mode = MODES[modeIdx];
+        if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
+        else document.documentElement.setAttribute('data-theme', mode);
+        themeBtn.textContent = `theme: ${mode}`;
+        render();
+      });
+
+      // --- rendering -----------------------------------------------------------
+      let handles = [];
+      function teardown() {
+        for (const h of handles) {
+          try { h.player.destroy(); h.destroy(); } catch { /* already gone */ }
+        }
+        handles = [];
+      }
+
+      function card(path) {
+        const el = document.createElement('section');
+        el.className = 'card';
+        el.innerHTML = `
+          <div class="card-head">
+            <code class="path"></code>
+            <div class="card-actions">
+              <button class="play" type="button">play</button>
+            </div>
+          </div>
+          <div class="staff"></div>
+          <details class="source"><summary>source</summary><pre></pre></details>`;
+        el.querySelector('.path').textContent = path;
+
+        const staff = el.querySelector('.staff');
+        const pre = el.querySelector('.source pre');
+        const isTex = /\.(alphatex|atex|tex)$/i.test(path);
+
+        const fail = (msg) => {
+          staff.replaceChildren(Object.assign(document.createElement('p'), {
+            className: 'err',
+            textContent: `${path}: ${msg}`,
+          }));
+          pre.textContent = msg;
+          el.querySelector('.play').disabled = true;
+        };
+
+        // One fetch does double duty: it proves the file exists and supplies the
+        // source panel. The existence check cannot be a status code — Vite's dev
+        // server answers a missing file with 200 and the index.html body, so a
+        // typo'd path would mount, render nothing, and look identical to notation
+        // that draws nothing. text/html is the tell.
+        fetch(`${import.meta.env.BASE_URL}${path}`)
+          .then(async (r) => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            if ((r.headers.get('content-type') ?? '').includes('text/html'))
+              throw new Error('no such file under public/ (server returned the app shell)');
+
+            // Show the raw text next to the render — a wrong note is far easier
+            // to spot with the source in front of you.
+            pre.textContent = isTex ? await r.text() : 'binary format — no text source';
+
+            const handle = mountNotation(staff, path);
+            handles.push(handle);
+            const btn = el.querySelector('.play');
+            let on = false;
+            btn.addEventListener('click', () => {
+              handle.player.toggle();
+              on = !on;
+              btn.textContent = on ? 'pause' : 'play';
+            });
+          })
+          .catch((err) => fail(err?.message ?? String(err)));
+
+        return el;
+      }
+
+      async function listAll() {
+        const base = import.meta.env.BASE_URL;
+        const index = await (await fetch(`${base}exercises/index.json`)).json();
+        const rows = [];
+        for (const inst of index.instruments) {
+          const data = await (await fetch(`${base}exercises/${inst.file}`)).json();
+          for (const cat of data.categories)
+            for (const ex of cat.exercises)
+              if (ex.file) rows.push({ inst: inst.id, cat: cat.name, ex });
+        }
+        return rows;
+      }
+
+      async function render() {
+        teardown();
+        main.replaceChildren();
+
+        if (files.length) {
+          for (const path of files) main.appendChild(card(path));
+          return;
+        }
+
+        const intro = document.createElement('section');
+        intro.className = 'intro';
+        intro.innerHTML = `
+          <p>Pass <code>?files=notation/one.alphatex,notation/two.alphatex</code> to preview
+          specific files — paths are written exactly as an exercise's <code>file</code> field.</p>
+          <p class="muted">Every notation exercise currently in the content files:</p>`;
+        main.appendChild(intro);
+
+        try {
+          const rows = await listAll();
+          const ul = document.createElement('ul');
+          ul.className = 'all';
+          for (const { inst, cat, ex } of rows) {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = `?files=${encodeURIComponent(ex.file)}`;
+            a.textContent = ex.title;
+            li.append(a, Object.assign(document.createElement('span'), {
+              className: 'meta',
+              textContent: ` — ${inst} / ${cat} — ${ex.file}`,
+            }));
+            ul.appendChild(li);
+          }
+          main.appendChild(ul);
+        } catch (err) {
+          main.insertAdjacentHTML('beforeend', `<p class="err">could not read content files: ${err.message}</p>`);
+        }
+      }
+
+      render();
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0 0 4rem;
+        background: var(--ground);
+        color: var(--ink);
+        font-family: var(--font-body);
+      }
+      header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--line);
+      }
+      h1 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; margin: 0; }
+      button {
+        font: inherit;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--ink);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-hw);
+        padding: 0.35rem 0.8rem;
+        cursor: pointer;
+      }
+      button:hover { border-color: var(--accent); }
+      main { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .card-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.7rem 1rem;
+        border-bottom: 1px solid var(--line);
+      }
+      .path { font-family: var(--font-mono); font-size: 0.8rem; color: var(--amber-readout); }
+      .staff { padding: 0.5rem 0.25rem; overflow-x: auto; }
+      .source { border-top: 1px solid var(--line); }
+      .source summary {
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      .source pre {
+        margin: 0;
+        padding: 0 1rem 1rem;
+        overflow-x: auto;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        line-height: 1.55;
+        color: var(--ink);
+      }
+      .intro { max-width: 60ch; line-height: 1.6; }
+      .intro code, .meta { font-family: var(--font-mono); font-size: 0.82rem; }
+      .muted, .meta { color: var(--muted); }
+      .all { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+      .all a { color: var(--accent); }
+      .err { color: var(--accent); font-family: var(--font-mono); font-size: 0.85rem; padding: 1rem; }
+    </style>
+  </body>
+</html>

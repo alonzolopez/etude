@@ -14,4 +14,8 @@ external link; youtube `url` → embed; any other `url` → plain iframe; neithe
 text. Never re-add: `images`, `example`, `backing_track`, `starting_string`,
 `original_key`.
 
+Write these files with `.claude/skills/_notation/scripts/add-exercise.mjs`, not by
+hand and never with a whole-file dump: they are 2-space-indented with **no trailing
+newline**, and a reformat turns a 5-line content change into a 1000-line diff.
+
 `npm run test` validates these files (`tests/content.test.ts`) — run it after edits.

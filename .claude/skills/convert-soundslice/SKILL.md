@@ -1,6 +1,6 @@
 ---
 name: convert-soundslice
-description: Use when an etude exercise should stop being a Soundslice link-out card and render in-page instead — the owner supplies a Soundslice export (GPX preferred, MusicXML accepted) or newly-authored alphaTex, plus an exercise title or soundslice.com URL. Also use when a notation file arrives with no exercise to attach it to.
+description: Use when an etude exercise should stop being a Soundslice link-out card and render in-page instead — the owner supplies an existing Soundslice export (GPX preferred, MusicXML accepted), plus an exercise title or soundslice.com URL. Also use when an existing notation file arrives with no exercise to attach it to.
 ---
 
 # Convert a Soundslice exercise to inline notation
@@ -23,6 +23,7 @@ one push later.
 | Exercise sits in a `*_jam_tracks` category | Song-synced slices lose their real-recording sync under alphaTab synthesis. Spec §2.2: these stay Soundslice cards **permanently** — the card is a finished surface, not a transitional one. | Refuse and say why. Convert only if the owner explicitly states this particular slice is not song-synced. |
 | More than one exercise matches | Slice ids are reused across instruments — `gLTHc` is in `bass.json`, `drums.json` **and** `guitar.json`. | Show the matches, ask which. Never pick one. |
 | No exercise matches | | Offer the **new exercise** path below. Don't invent a match. |
+| The owner has no file — they want notation written from a description | Wrong skill. Use `create-alphatex`. |
 | alphaTab can't parse the export | | Stop. Leave the JSON untouched. Ask for a re-export. |
 
 ## Workflow
@@ -30,7 +31,7 @@ one push later.
 **1. Locate the exercise.** Exact title, url, or slice id:
 
 ```bash
-node .claude/skills/convert-soundslice/scripts/find-exercise.mjs "<title|url|slice-id>" [--instrument=guitar|bass|drums]
+node .claude/skills/_notation/scripts/find-exercise.mjs "<title|url|slice-id>" [--instrument=guitar|bass|drums]
 ```
 
 Exit 0 = one match (proceed). Exit 4 = ambiguous. Exit 3 = none. The report flags
@@ -51,7 +52,7 @@ song-sync risk and prints the exercise JSON verbatim. Honor the hard stops above
 **3. Parse-validate headlessly — before touching JSON.**
 
 ```bash
-node .claude/skills/convert-soundslice/scripts/validate-notation.mjs public/notation/<name>
+node .claude/skills/_notation/scripts/validate-notation.mjs public/notation/<name>
 ```
 
 Runs alphaTab's own importer (`ScoreLoader`), the same one the app uses at runtime,
@@ -90,10 +91,14 @@ npx vitest run tests/content.test.ts
 Schema, `weight >= 0`, file-existence, non-empty-category, dead-field checks — the
 same gate CI runs. Must pass.
 
-**6. Offer the visual check.** Say the exercise is wired and offer:
-`npm run dev` → pick the instrument and its category → confirm the notation renders
-and `space` plays it. This is the only step that proves the render, not just the
-parse. Offer it; the owner decides.
+**6. Offer the visual check.** This is the only step that proves the render, not
+just the parse. Offer it; the owner decides. Fastest route is the preview harness,
+which renders one file through the production path without a practice session:
+
+```bash
+npm run dev
+# http://localhost:5173/etude/preview.html?files=notation/<name>
+```
 
 **7. Commit and push.** `content: <what changed> (<exercise title>)`. Push is a live
 deploy in ~1 min.
@@ -104,25 +109,31 @@ deploy in ~1 min.
 ## No matching exercise → add a new one
 
 The sibling workflow (spec §12). Same steps 2–3 and 5–7, but instead of editing an
-existing exercise, insert a new object into the right category's `exercises` array in
-the right instrument file. Ask the owner for anything you don't have — never invent
-content metadata.
+existing exercise, insert a new one into the right category. Ask the owner for
+anything you don't have — never invent content metadata.
 
-```json
-{
-  "title": "<required>",
-  "weight": 1,
-  "file": "notation/<name>"
-}
+Do the insertion with the shared script rather than by hand; it enforces field
+order, refuses dead fields and duplicate titles, and preserves the files' exact
+bytes:
+
+```bash
+node .claude/skills/_notation/scripts/add-exercise.mjs \
+  --instrument=guitar --category=scales \
+  --title="<required>" --weight=1 --file=notation/<name> \
+  [--key=...] [--mode=1,2] [--metronome=60,130] [--description="..."] \
+  [--create-category="Display Name"]
 ```
 
 - `title` and `weight` are the only required fields. `weight` ≥ 0, relative within
   its category; **`0` means deliberately disabled** — never drawn, never delete-worthy.
-- Optional: `key[]`, `mode[]`, `metronome_range [lo, hi]` (lo ≤ hi), `description`.
 - Category keys are unique per instrument file, and array order is wizard display
-  order. Creating a new category means `{key, name, exercises}` with at least one
-  exercise — `tests/content.test.ts` fails on an empty category, because the wizard
-  would offer it and then draw `undefined`.
+  order. A new category needs `--create-category`; `tests/content.test.ts` fails on
+  an empty one, because the wizard would offer it and then draw `undefined`.
+
+> **Writing the notation yourself, from a description rather than an export?**
+> That's `create-alphatex`. It covers the musical clarifying questions, the
+> verified alphaTex syntax reference, and the pitch read-back — none of which
+> this skill provides.
 
 ## Red flags — stop and re-read the step
 
