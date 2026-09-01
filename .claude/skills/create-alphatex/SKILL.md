@@ -108,7 +108,7 @@ Then give them the URL, listing every file from this batch — use the port Vite
 actually prints, which is not 5173 when something else already holds it:
 
 ```
-http://localhost:5173/etude/preview.html?files=notation/a.alphatex,notation/b.alphatex
+http://localhost:5173/etude/preview.html?files=notation/guitar/a.alphatex,notation/guitar/b.alphatex
 ```
 
 `preview.html` renders through `src/notation.ts` — the production path — so this
@@ -125,7 +125,7 @@ show them again.
 node .claude/skills/_notation/scripts/add-exercise.mjs \
   --instrument=guitar --category=scales \
   --title="C major scale (8th position)" --weight=2 \
-  --file=notation/c-major-8th-position.alphatex \
+  --file=notation/guitar/c-major-8th-position.alphatex \
   --metronome=60,130 --description="..."
 ```
 

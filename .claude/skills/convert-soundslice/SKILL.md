@@ -70,7 +70,7 @@ slice means the wrong export.
 +          "file": "notation/guitar/minor-pentatonic.gpx",
 ```
 
-- The value is `notation/<name>` — **relative to `public/`**, no `public/` prefix
+- The value is `notation/<instrument>/<name>` — **relative to `public/`**, no `public/` prefix
   (`tests/content.test.ts` checks `public/${ex.file}`).
 - Keeping `file` in the url's slot preserves field order and keeps the diff to one
   line. Verify with `git diff --stat`: **one file, 1 insertion, 1 deletion.**
@@ -98,7 +98,7 @@ which renders one file through the production path without a practice session:
 
 ```bash
 npm run dev
-# http://localhost:5173/etude/preview.html?files=notation/<name>
+# http://localhost:5173/etude/preview.html?files=notation/<instrument>/<name>
 ```
 
 **7. Commit and push.** `content: <what changed> (<exercise title>)`. Push is a live
@@ -120,7 +120,7 @@ bytes:
 ```bash
 node .claude/skills/_notation/scripts/add-exercise.mjs \
   --instrument=guitar --category=scales \
-  --title="<required>" --weight=1 --file=notation/<name> \
+  --title="<required>" --weight=1 --file=notation/<instrument>/<name> \
   [--key=...] [--position=1,2,3] [--metronome=60,130] [--description="..."] \
   [--create-category="Display Name"]
 ```

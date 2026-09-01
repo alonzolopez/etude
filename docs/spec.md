@@ -135,7 +135,7 @@ Produce `public/exercises/*.json` from the JUCE repo's `exercises.json`:
 **Incremental Soundslice → notation conversion (owner-paced, after v1):** for any
 slice: export it from Soundslice (edit slice → Export → **GPX** preferred,
 MusicXML otherwise — both supported for your own slices), commit the file under
-`public/notation/`, set the exercise's `file` field, drop its `url`. No code
+`public/notation/<instrument>/`, set the exercise's `file` field, drop its `url`. No code
 changes per conversion. Song-synced slices lose their real-recording sync under
 alphaTab's synthesis, so the owner intends to keep those (e.g. the Khruangbin
 jam tracks) as Soundslice cards **permanently** — the card is a permanent

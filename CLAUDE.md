@@ -32,7 +32,7 @@ input is `index.html`, so it never reaches `dist/`.
 ```
 npm run dev
 # one or more files, paths written exactly as an exercise's `file` field:
-http://localhost:5173/etude/preview.html?files=notation/a.alphatex,notation/b.alphatex
+http://localhost:5173/etude/preview.html?files=notation/guitar/a.alphatex,notation/guitar/b.alphatex
 # no ?files= lists every notation exercise in the content files
 ```
 
@@ -44,7 +44,7 @@ Practice: `→` next · `←` previous · `space` player-or-metronome · `m` met
 
 ## Modules (src/)
 - `exercises.ts` — content types, classification, weighted draw, materialization
-- `history.ts` — instance stack (back restores exact key/mode/bpm)
+- `history.ts` — instance stack (back restores exact key/position/bpm)
 - `session.ts` — wall-clock timer + overtime
 - `metronome.ts` — Web Audio lookahead scheduler; never setTimeout-driven clicks
 - `hotkeys.ts` — key layer; single keys suspended while an input has focus
