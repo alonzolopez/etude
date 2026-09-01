@@ -77,24 +77,33 @@ describe('add-exercise.mjs', () => {
     expect(after).toContain('\n  "instrument"');
   });
 
-  it('writes fields in canonical order: title, weight, file, key, mode, metronome_range, description', () => {
+  it('writes fields in canonical order: title, weight, file, key, position, metronome_range, description', () => {
     const code = run([
       ...ADD,
       '--metronome=60,130',
       '--description=Two octaves, ascending then descending',
       '--key=C major,D major',
-      '--mode=1,2',
+      '--position=1,2',
     ]).code;
     expect(code).toBe(0);
 
     const cat = JSON.parse(read()).categories.find((c: any) => c.key === 'scales');
     const ex = cat.exercises.find((e: any) => e.title === 'C major scale (8th position)');
     expect(Object.keys(ex)).toEqual([
-      'title', 'weight', 'file', 'key', 'mode', 'metronome_range', 'description',
+      'title', 'weight', 'file', 'key', 'position', 'metronome_range', 'description',
     ]);
     expect(ex.metronome_range).toEqual([60, 130]);
     expect(ex.key).toEqual(['C major', 'D major']);
-    expect(ex.mode).toEqual([1, 2]);
+    expect(ex.position).toEqual([1, 2]);
+  });
+
+  it('refuses --mode: it was removed from the schema', () => {
+    const { code, out } = run([
+      '--instrument=guitar', '--category=scales',
+      '--title=Nope', '--weight=1', '--mode=1',
+    ]);
+    expect(code).toBe(2);
+    expect(out).toContain('removed from the exercise schema');
   });
 
   it('appends to the end of the category, leaving existing exercises in order', () => {

@@ -11,7 +11,7 @@
 //     --instrument=guitar --category=scales \
 //     --title="C major scale (8th position)" --weight=2 \
 //     --file=notation/c-major-8th-position.alphatex \
-//     [--key="C major,D major"] [--mode=1,2,3] [--metronome=60,130] \
+//     [--key="C major,D major"] [--position=1,2,3] [--metronome=60,130] \
 //     [--description="..."] [--create-category="Modal Shapes"] [--dry-run]
 //
 // exit 0 = written (or dry run)   2 = bad input   4 = duplicate title
@@ -21,10 +21,10 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const DEAD = ['images', 'example', 'backing_track', 'starting_string', 'original_key'];
+const DEAD = ['images', 'example', 'backing_track', 'starting_string', 'original_key', 'mode'];
 const KNOWN = new Set([
   'root', 'instrument', 'category', 'create-category', 'title', 'weight',
-  'file', 'url', 'key', 'mode', 'metronome', 'description', 'dry-run', 'force',
+  'file', 'url', 'key', 'position', 'metronome', 'description', 'dry-run', 'force',
 ]);
 
 const opts = new Map();
@@ -102,9 +102,9 @@ const list = (name, map = (s) => s) => {
 };
 
 const key = list('key');
-const mode = list('mode', (s) => {
+const position = list('position', (s) => {
   const n = Number(s);
-  if (!Number.isInteger(n)) die(2, `--mode must be integers, got "${s}"`);
+  if (!Number.isInteger(n)) die(2, `--position must be integers, got "${s}"`);
   return n;
 });
 const metronome = list('metronome', (s) => {
@@ -124,7 +124,7 @@ exercise.weight = weight;
 if (file) exercise.file = file;
 if (url) exercise.url = url;
 if (key) exercise.key = key;
-if (mode) exercise.mode = mode;
+if (position) exercise.position = position;
 if (metronome) exercise.metronome_range = metronome;
 if (description) exercise.description = description;
 
