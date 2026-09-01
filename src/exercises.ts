@@ -4,7 +4,7 @@ export interface Exercise {
   url?: string;
   file?: string;
   key?: string[];
-  mode?: number[];
+  position?: number[];
   metronome_range?: [number, number];
   description?: string;
 }
@@ -16,8 +16,10 @@ export interface ExerciseInstance {
   category: { key: string; name: string };
   exercise: Exercise;
   key?: string;
-  mode?: number;
+  position?: number;
   bpm?: number;
+  /** `exercise.file` with {root}/{position} expanded — what actually gets mounted. */
+  file?: string;
 }
 
 export function classify(ex: Exercise): ExerciseKind {
@@ -86,11 +88,13 @@ export function materialize(
     exercise: ex,
   };
   if (ex.key?.length) inst.key = pick(ex.key, rand);
-  if (ex.mode?.length) inst.mode = pick(ex.mode, rand);
+  if (ex.position?.length) inst.position = pick(ex.position, rand);
   if (ex.metronome_range) {
     const [lo, hi] = ex.metronome_range;
     inst.bpm = lo + Math.min(hi - lo, Math.floor(rand() * (hi - lo + 1)));
   }
+  // resolve last: the path depends on the rolls above
+  if (ex.file) inst.file = resolveFile(ex.file, inst.key, inst.position);
   return inst;
 }
 

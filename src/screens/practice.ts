@@ -22,7 +22,7 @@ const esc = (s: string) => s.replace(/[&<>"]/g, (c) =>
 function keyLine(inst: ExerciseInstance): string {
   const parts: string[] = [];
   if (inst.key) parts.push(inst.key);
-  if (inst.mode !== undefined) parts.push(`mode ${inst.mode}`);
+  if (inst.position !== undefined) parts.push(`pos ${inst.position}`);
   return parts.join(' · ');
 }
 
@@ -72,7 +72,7 @@ export function renderPractice(
   let notationDestroy: (() => void) | null = null;
 
   if (kind === 'notation') {
-    const handle = mountNotation(content, inst.exercise.file!);
+    const handle = mountNotation(content, inst.file!);
     player = handle.player;
     notationDestroy = handle.destroy;
   } else if (kind === 'youtube') {

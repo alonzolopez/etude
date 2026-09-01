@@ -29,19 +29,36 @@ describe('weightedDraw', () => {
 
 describe('materialize', () => {
   const cat: Category = { key: 'scales', name: 'Scales', exercises: [] };
-  const full = ex({ key: ['A', 'B'], mode: [1, 5], metronome_range: [60, 62] });
-  it('rolls key, mode, and integer bpm within inclusive bounds', () => {
+  const full = ex({ key: ['A', 'B'], position: [1, 5], metronome_range: [60, 62] });
+  it('rolls key, position, and integer bpm within inclusive bounds', () => {
     const inst = materialize(full, cat, () => 0.999);
     expect(inst.key).toBe('B');
-    expect(inst.mode).toBe(5);
+    expect(inst.position).toBe(5);
     expect(inst.bpm).toBe(62);
     expect(inst.category).toEqual({ key: 'scales', name: 'Scales' });
   });
   it('omits fields the exercise lacks', () => {
     const inst = materialize(ex({}), cat, () => 0.5);
     expect(inst.key).toBeUndefined();
-    expect(inst.mode).toBeUndefined();
+    expect(inst.position).toBeUndefined();
     expect(inst.bpm).toBeUndefined();
+    expect(inst.file).toBeUndefined();
+  });
+  it('resolves the file template against the rolled key and position', () => {
+    const inst = materialize(
+      ex({
+        file: 'notation/guitar/scales/dorian/{root}/p{position}.alphatex',
+        key: ['A dorian', 'A# dorian'],
+        position: [1, 3],
+      }),
+      cat,
+      () => 0.999,
+    );
+    expect(inst.file).toBe('notation/guitar/scales/dorian/a-sharp/p3.alphatex');
+  });
+  it('carries a literal file through untouched', () => {
+    const inst = materialize(ex({ file: 'notation/guitar/minor-pentatonic.gpx' }), cat, () => 0.5);
+    expect(inst.file).toBe('notation/guitar/minor-pentatonic.gpx');
   });
 });
 
