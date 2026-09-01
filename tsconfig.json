@@ -3,6 +3,9 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    // tests/expand-agreement.test.ts imports the CLI scripts' plain-JS copy of
+    // the expansion rules. checkJs stays off: those files are not app code.
+    "allowJs": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "strict": true,
     "noUncheckedIndexedAccess": true,

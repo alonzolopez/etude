@@ -3,6 +3,7 @@ import { renderPractice, type PracticeDeps } from '../src/screens/practice';
 import { SessionTimer } from '../src/session';
 import { Hotkeys } from '../src/hotkeys';
 import type { ExerciseInstance } from '../src/exercises';
+import { mountNotation } from '../src/notation';
 
 const notationPlayer = vi.hoisted(() => ({
   controllable: true,
@@ -23,12 +24,15 @@ const deps = (): PracticeDeps => ({
 const base: ExerciseInstance = {
   category: { key: 'c', name: 'C' },
   exercise: { title: 'Minor Pentatonic', weight: 1 },
-  key: 'A minor', mode: 5, bpm: 98,
+  key: 'A minor', position: 5, bpm: 98,
 };
 
 function render(over: Partial<ExerciseInstance['exercise']>, instOver: Partial<ExerciseInstance> = {}) {
   document.body.innerHTML = '<div id="app"></div>';
-  const inst = { ...base, ...instOver, exercise: { ...base.exercise, ...over } };
+  const inst: ExerciseInstance = { ...base, ...instOver, exercise: { ...base.exercise, ...over } };
+  // practice.ts mounts inst.file (the resolved path). Mirror materialize() for
+  // literal paths so a test only has to name the file once.
+  if (inst.exercise.file && inst.file === undefined) inst.file = inst.exercise.file;
   const timer = new SessionTimer(5, () => 0);
   renderPractice(document.getElementById('app')!, inst, timer, deps());
   return document.getElementById('app')!;
@@ -40,7 +44,7 @@ describe('renderPractice content area', () => {
   it('renders title, key line, and bpm readout', () => {
     const app = render({});
     expect(app.textContent).toContain('Minor Pentatonic');
-    expect(app.textContent).toContain('A minor · mode 5');
+    expect(app.textContent).toContain('A minor · pos 5');
     expect(app.querySelector('.bpm')?.textContent).toContain('98');
   });
 
@@ -56,7 +60,7 @@ describe('renderPractice content area', () => {
     const app = render({ url: 'https://www.soundslice.com/slices/xFhXc/' });
     const card = app.querySelector('.ss-card')!;
     expect(card.textContent).toContain('Minor Pentatonic');
-    expect(card.textContent).toContain('A minor · mode 5');
+    expect(card.textContent).toContain('A minor · pos 5');
     expect(card.textContent).toContain('98');
     // no description on this exercise: no empty note paragraph
     expect(card.querySelector('.ss-note')).toBeNull();
@@ -65,7 +69,7 @@ describe('renderPractice content area', () => {
   it('the soundslice card shows a description when there is one, and omits absent parts', () => {
     const app = render(
       { url: 'https://www.soundslice.com/slices/xFhXc/', description: 'Watch the shifts.' },
-      { key: undefined, mode: undefined, bpm: undefined },
+      { key: undefined, position: undefined, bpm: undefined },
     );
     const card = app.querySelector('.ss-card')!;
     expect(card.querySelector('.ss-note')?.textContent).toContain('Watch the shifts.');
@@ -97,5 +101,17 @@ describe('renderPractice content area', () => {
     const app = render({ description: 'Practice slowly.' });
     expect(app.querySelector('.text-content')?.textContent).toContain('Practice slowly.');
     expect(app.querySelector('iframe')).toBeNull();
+  });
+
+  it('mounts the resolved path, never the template', () => {
+    vi.mocked(mountNotation).mockClear();
+    render(
+      { file: 'notation/guitar/scales/dorian/{root}/p{position}.alphatex' },
+      { file: 'notation/guitar/scales/dorian/a-sharp/p3.alphatex' },
+    );
+    expect(vi.mocked(mountNotation)).toHaveBeenCalledWith(
+      expect.anything(),
+      'notation/guitar/scales/dorian/a-sharp/p3.alphatex',
+    );
   });
 });

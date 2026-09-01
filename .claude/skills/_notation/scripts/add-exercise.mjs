@@ -10,9 +10,17 @@
 //   node .claude/skills/_notation/scripts/add-exercise.mjs \
 //     --instrument=guitar --category=scales \
 //     --title="C major scale (8th position)" --weight=2 \
-//     --file=notation/c-major-8th-position.alphatex \
-//     [--key="C major,D major"] [--mode=1,2,3] [--metronome=60,130] \
+//     --file=notation/guitar/c-major-8th-position.alphatex \
+//     [--key="C major,D major"] [--position=1,2,3] [--metronome=60,130] \
 //     [--description="..."] [--create-category="Modal Shapes"] [--dry-run]
+//
+// --file may be a template: {root} expands from --key (the pitch-class slug of
+// the rolled key), {position} from --position. Every combination must already
+// exist under public/ — the arrays are the coverage declaration for the axes the
+// template names, so the script expands the product and refuses any gap.
+//
+//     --file=notation/guitar/scales/dorian/{root}/p{position}.alphatex \
+//     --key="A dorian,A# dorian" --position=1,2,3,4,5
 //
 // exit 0 = written (or dry run)   2 = bad input   4 = duplicate title
 // exit 5 = unknown category       1 = unexpected
@@ -20,11 +28,12 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveFile, templateAxes, FILE_AXES } from './expand.mjs';
 
-const DEAD = ['images', 'example', 'backing_track', 'starting_string', 'original_key'];
+const DEAD = ['images', 'example', 'backing_track', 'starting_string', 'original_key', 'mode'];
 const KNOWN = new Set([
   'root', 'instrument', 'category', 'create-category', 'title', 'weight',
-  'file', 'url', 'key', 'mode', 'metronome', 'description', 'dry-run', 'force',
+  'file', 'url', 'key', 'position', 'metronome', 'description', 'dry-run', 'force',
 ]);
 
 const opts = new Map();
@@ -81,19 +90,6 @@ const file = opts.get('file');
 const url = opts.get('url');
 if (file && url) die(2, 'pass --file or --url, not both (file wins in classify() anyway)');
 
-if (file) {
-  if (file.startsWith('public/'))
-    die(2, `--file must be relative to public/, not "${file}"`,
-      `  Use "${file.slice('public/'.length)}" — tests/content.test.ts checks public/\${ex.file}.`);
-  if (!existsSync(resolve(ROOT, 'public', file)))
-    die(2, `--file points at a file that does not exist: public/${file}`,
-      '  Create and validate the notation file first. A file entry pointing at nothing is a broken exercise in production.');
-  if (!/\.(alphatex|atex|tex|gpx?|gp[3-7]|musicxml|xml)$/i.test(file))
-    die(2, `--file has an extension alphaTab will not route correctly: ${file}`,
-      '  alphaTex must end .alphatex/.atex/.tex (src/notation.ts routes text by extension).');
-}
-if (url && !/^https:\/\//.test(url)) die(2, `--url must start with https:// , got ${url}`);
-
 const list = (name, map = (s) => s) => {
   const raw = opts.get(name);
   if (raw === undefined) return undefined;
@@ -101,12 +97,76 @@ const list = (name, map = (s) => s) => {
   return parts.length ? parts : undefined;
 };
 
+// The axes are parsed before --file is validated: a templated file expands
+// against them, so it cannot be checked until they are known.
 const key = list('key');
-const mode = list('mode', (s) => {
+const position = list('position', (s) => {
   const n = Number(s);
-  if (!Number.isInteger(n)) die(2, `--mode must be integers, got "${s}"`);
+  if (!Number.isInteger(n)) die(2, `--position must be integers, got "${s}"`);
   return n;
 });
+
+const axes = file ? templateAxes(file) : new Set();
+
+if (file) {
+  if (file.startsWith('public/'))
+    die(2, `--file must be relative to public/, not "${file}"`,
+      `  Use "${file.slice('public/'.length)}" — tests/content.test.ts checks public/\${ex.file}.`);
+  // Applies to templates too: the template still ends in a real extension.
+  if (!/\.(alphatex|atex|tex|gpx?|gp[3-7]|musicxml|xml)$/i.test(file))
+    die(2, `--file has an extension alphaTab will not route correctly: ${file}`,
+      '  alphaTex must end .alphatex/.atex/.tex (src/notation.ts routes text by extension).');
+
+  for (const name of axes)
+    if (!FILE_AXES.includes(name))
+      die(2, `--file uses an unknown placeholder {${name}}: ${file}`,
+        `  Known placeholders: ${FILE_AXES.map((a) => `{${a}}`).join(', ')}. ` +
+        'resolveFile() throws on any other, so every draw would fail.');
+
+  if (axes.has('root') && !key)
+    die(2, '--file contains {root} but no --key was given',
+      '  {root} is the pitch-class slug of the rolled key, so the exercise must declare key[].\n' +
+      '  Pass --key="A dorian,A# dorian,B dorian,…".');
+  if (axes.has('position') && !position)
+    die(2, '--file contains {position} but no --position was given',
+      '  {position} is the rolled position, so the exercise must declare position[].\n' +
+      '  Pass --position=1,2,3,4,5.');
+
+  if (axes.size) {
+    // A template addresses a family. Every combination the app can roll must
+    // already be on disk, so the writer enforces the same coverage rule as
+    // tests/content.test.ts and fails here rather than at `npm run test`.
+    const missing = [];
+    let total = 0;
+    for (const k of axes.has('root') ? key : [undefined])
+      for (const p of axes.has('position') ? position : [undefined]) {
+        total++;
+        const resolved = resolveFile(file, k, p);
+        if (!existsSync(resolve(ROOT, 'public', resolved))) missing.push(resolved);
+      }
+    if (missing.length)
+      die(2, `--file is a template and ${missing.length} of its ${total} files do not exist`,
+        missing.map((m) => `    public/${m}`).join('\n') + '\n' +
+        '  key[] and position[] are the coverage declaration for the axes the template\n' +
+        '  names: list a value only once its file exists. Generate the missing files, or\n' +
+        '  narrow --key/--position to what is on disk and add the rest later.');
+  } else if (!existsSync(resolve(ROOT, 'public', file))) {
+    die(2, `--file points at a file that does not exist: public/${file}`,
+      '  Create and validate the notation file first. A file entry pointing at nothing is a broken exercise in production.');
+  }
+}
+if (url && !/^https:\/\//.test(url)) die(2, `--url must start with https:// , got ${url}`);
+
+// position[] with no {position} in the file renders "pos N" over a fixed path —
+// an axis that displays but selects nothing. tests/content.test.ts's "never rolls
+// an axis its file does not select" rejects it, so refuse to write it.
+// key[] without {root} is legitimate: a movable shape uses the key as a prompt.
+if (position && !axes.has('position'))
+  die(2, '--position was given but --file has no {position} placeholder',
+    '  The rolled position would render as "pos N" while the path stayed fixed —\n' +
+    '  an axis that displays but selects nothing. Either template the file as\n' +
+    '  ".../p{position}.alphatex", or drop --position.');
+
 const metronome = list('metronome', (s) => {
   const n = Number(s);
   if (!Number.isFinite(n)) die(2, `--metronome must be numbers, got "${s}"`);
@@ -124,7 +184,7 @@ exercise.weight = weight;
 if (file) exercise.file = file;
 if (url) exercise.url = url;
 if (key) exercise.key = key;
-if (mode) exercise.mode = mode;
+if (position) exercise.position = position;
 if (metronome) exercise.metronome_range = metronome;
 if (description) exercise.description = description;
 
