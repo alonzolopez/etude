@@ -55,13 +55,6 @@
             "G minor",
             "G# minor"
           ],
-          "mode": [
-            1,
-            2,
-            3,
-            4,
-            5
-          ],
           "metronome_range": [
             60,
             130
@@ -84,13 +77,6 @@
             "F# minor",
             "G minor",
             "G# minor"
-          ],
-          "mode": [
-            1,
-            2,
-            3,
-            4,
-            5
           ],
           "metronome_range": [
             60,
@@ -178,13 +164,6 @@
             "G major blues",
             "G# major blues"
           ],
-          "mode": [
-            1,
-            2,
-            3,
-            4,
-            5
-          ],
           "metronome_range": [
             60,
             130
@@ -207,13 +186,6 @@
             "F# minor blues",
             "G minor blues",
             "G# minor blues"
-          ],
-          "mode": [
-            1,
-            2,
-            3,
-            4,
-            5
           ],
           "metronome_range": [
             60,
