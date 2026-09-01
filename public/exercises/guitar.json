@@ -8,7 +8,7 @@
         {
           "title": "Minor pentatonic scale",
           "weight": 2,
-          "file": "notation/guitar/minor-pentatonic.gpx",
+          "file": "notation/guitar/scales/minor-pentatonic/{root}/p{position}.alphatex",
           "key": [
             "A minor",
             "A# minor",
@@ -23,10 +23,18 @@
             "G minor",
             "G# minor"
           ],
+          "position": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
           "metronome_range": [
             60,
             130
-          ]
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Minor pentatonic scale with b5",
@@ -72,7 +80,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Minor Blues scale practice",
@@ -95,7 +103,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "The Chromatic Scale",
@@ -118,7 +126,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "The Diminished Scale",
@@ -193,6 +201,7 @@
         {
           "title": "Ionian scale practice",
           "weight": 1,
+          "file": "notation/guitar/scales/ionian/{root}/p{position}.alphatex",
           "key": [
             "A ionian",
             "A# ionian",
@@ -207,11 +216,18 @@
             "G ionian",
             "G# ionian"
           ],
+          "position": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
           "metronome_range": [
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Dorian scale practice",
@@ -234,7 +250,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Phrygian scale practice",
@@ -257,7 +273,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Lydian scale practice",
@@ -280,7 +296,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Mixolydian scale practice",
@@ -303,7 +319,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Aeolian scale practice",
@@ -326,7 +342,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Locrian scale practice",
@@ -349,7 +365,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Harmonic minor scale practice",
@@ -372,7 +388,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Locrian natural 6 practice",
@@ -395,7 +411,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Ionian #5 practice",
@@ -418,7 +434,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Dorian #4 practice",
@@ -441,7 +457,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Phrygian dominant practice",
@@ -464,7 +480,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Lydian #2 practice",
@@ -487,7 +503,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Altered bb7 practice",
@@ -510,7 +526,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Melodic minor scale practice",
@@ -533,7 +549,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth). Remember that the melodic minor scale can be thought of as the Major Ionian scale with a lowered 3rd, or Dorian with a raised 7th."
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Remember that the melodic minor scale can be thought of as the Major Ionian scale with a lowered 3rd, or Dorian with a raised 7th."
         },
         {
           "title": "Dorian b2 practice",
@@ -556,7 +572,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Lydian augmented practice",
@@ -579,7 +595,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Lydian dominant practice",
@@ -602,7 +618,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Mixolydian b6 practice",
@@ -625,7 +641,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Locrian natural 2 practice",
@@ -648,7 +664,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
         },
         {
           "title": "Altered scale practice",
@@ -671,7 +687,40 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Ionian scale practice (three notes per string)",
+          "weight": 1,
+          "file": "notation/guitar/scales/ionian-3nps/{root}/p{position}.alphatex",
+          "key": [
+            "A ionian",
+            "A# ionian",
+            "B ionian",
+            "C ionian",
+            "C# ionian",
+            "D ionian",
+            "D# ionian",
+            "E ionian",
+            "F ionian",
+            "F# ionian",
+            "G ionian",
+            "G# ionian"
+          ],
+          "position": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N."
         }
       ]
     },
