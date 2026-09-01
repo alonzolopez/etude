@@ -61,20 +61,54 @@ export function rootSlug(key: string): string {
 }
 
 /**
+ * One `{name}` placeholder in a `file` template. Shared by resolveFile() and
+ * templateAxes() so the two can never disagree about what a placeholder is.
+ * Safe to share: String.replace resets lastIndex, matchAll clones the regex.
+ */
+const PLACEHOLDER = /\{(\w+)\}/g;
+
+/**
+ * The axis vocabulary a `file` template may reference: placeholder name -> the
+ * value one rolled variant expands it to. This object *is* the vocabulary —
+ * resolveFile() reads it and FILE_AXES publishes it, so adding an axis is one
+ * entry here plus its roll in materialize().
+ */
+const AXES: Record<string, (file: string, key?: string, position?: number) => string> = {
+  root: (file, key) => {
+    if (key === undefined) throw new Error(`{root} needs a rolled key: ${file}`);
+    return rootSlug(key);
+  },
+  position: (file, _key, position) => {
+    if (position === undefined) throw new Error(`{position} needs a rolled position: ${file}`);
+    return String(position);
+  },
+};
+
+/**
+ * Every axis resolveFile() can expand. tests/content.test.ts asserts its own
+ * expansion iterates all of these, so an axis added above without teaching the
+ * coverage gate about it is a red test rather than a silent hole in coverage.
+ */
+export const FILE_AXES: readonly string[] = Object.keys(AXES);
+
+/**
+ * The placeholder names a `file` references — the axes a draw must roll to
+ * resolve it. A literal path names none, which is why it is one file drawn
+ * under many keys rather than many files.
+ */
+export function templateAxes(file: string): Set<string> {
+  return new Set([...file.matchAll(PLACEHOLDER)].map((m) => m[1]!));
+}
+
+/**
  * Expand an exercise's `file` against one rolled variant. A path with no
  * placeholders comes back unchanged, so literal `file` values are unaffected.
  */
 export function resolveFile(file: string, key?: string, position?: number): string {
-  return file.replace(/\{(\w+)\}/g, (_, name: string) => {
-    if (name === 'root') {
-      if (key === undefined) throw new Error(`{root} needs a rolled key: ${file}`);
-      return rootSlug(key);
-    }
-    if (name === 'position') {
-      if (position === undefined) throw new Error(`{position} needs a rolled position: ${file}`);
-      return String(position);
-    }
-    throw new Error(`unknown placeholder {${name}} in ${file}`);
+  return file.replace(PLACEHOLDER, (_, name: string) => {
+    const axis = AXES[name];
+    if (!axis) throw new Error(`unknown placeholder {${name}} in ${file}`);
+    return axis(file, key, position);
   });
 }
 

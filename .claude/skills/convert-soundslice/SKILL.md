@@ -7,10 +7,10 @@ description: Use when an etude exercise should stop being a Soundslice link-out 
 
 ## Overview
 
-Converting is a **pure content edit**: commit the export under `public/notation/`,
-give the exercise a `file`, drop its `url`. No app code changes, ever. `file` beats
-`url` in `classify()` (`src/exercises.ts:24`), so the card becomes an alphaTab render
-with synth playback.
+Converting is a **pure content edit**: commit the export under
+`public/notation/<instrument>/`, give the exercise a `file`, drop its `url`. No app
+code changes, ever. `file` beats `url` in `classify()` (`src/exercises.ts:24`), so
+the card becomes an alphaTab render with synth playback.
 
 **Core principle: the file proves it parses before the JSON learns it exists.** A
 `file` pointing at something alphaTab can't read is a broken exercise in production

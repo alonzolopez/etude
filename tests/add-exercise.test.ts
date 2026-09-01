@@ -37,6 +37,10 @@ const ADD = [
   '--file=notation/c-major-8th-position.alphatex',
 ];
 
+/** A templated `file` and the axes that make its product complete on disk. */
+const TEMPLATE = '--file=notation/guitar/scales/dorian/{root}/p{position}.alphatex';
+const TEMPLATE_AXES = ['--key=C dorian,D dorian', '--position=1,2'];
+
 beforeEach(() => {
   root = mkdtempSync(join(tmpdir(), 'etude-add-'));
   mkdirSync(join(root, 'public'), { recursive: true });
@@ -46,6 +50,14 @@ beforeEach(() => {
   // the notation files the cases below reference.
   for (const n of ['c-major-8th-position', 'x', 'dorian-1'])
     writeFileSync(join(root, `public/notation/${n}.alphatex`), '\\title "fixture"\n.\n:4 0.6\n');
+  // A templated --file is checked across its whole product, so TEMPLATE's four
+  // combinations (C/D dorian x positions 1/2) all have to be on disk.
+  for (const r of ['c', 'd'])
+    for (const p of [1, 2]) {
+      const dir = join(root, `public/notation/guitar/scales/dorian/${r}`);
+      mkdirSync(dir, { recursive: true });
+      writeFileSync(join(dir, `p${p}.alphatex`), '\\title "fixture"\n.\n:4 0.6\n');
+    }
 });
 afterEach(() => rmSync(root, { recursive: true, force: true }));
 
@@ -78,12 +90,14 @@ describe('add-exercise.mjs', () => {
   });
 
   it('writes fields in canonical order: title, weight, file, key, position, metronome_range, description', () => {
+    // position[] only ever accompanies a {position} template, so the exercise
+    // carrying every field is necessarily a templated one.
     const code = run([
-      ...ADD,
+      ...ADD.slice(0, 4),
+      TEMPLATE,
       '--metronome=60,130',
       '--description=Two octaves, ascending then descending',
-      '--key=C major,D major',
-      '--position=1,2',
+      ...TEMPLATE_AXES,
     ]).code;
     expect(code).toBe(0);
 
@@ -93,8 +107,9 @@ describe('add-exercise.mjs', () => {
       'title', 'weight', 'file', 'key', 'position', 'metronome_range', 'description',
     ]);
     expect(ex.metronome_range).toEqual([60, 130]);
-    expect(ex.key).toEqual(['C major', 'D major']);
+    expect(ex.key).toEqual(['C dorian', 'D dorian']);
     expect(ex.position).toEqual([1, 2]);
+    expect(ex.file).toBe('notation/guitar/scales/dorian/{root}/p{position}.alphatex');
   });
 
   it('refuses --mode: it was removed from the schema', () => {
@@ -176,6 +191,97 @@ describe('add-exercise.mjs', () => {
     const r = run([...ADD.slice(0, 4), '--file=notation/missing.alphatex']);
     expect(r.code).not.toBe(0);
     expect(r.out).toMatch(/missing\.alphatex/);
+    expect(read()).toBe(before);
+  });
+
+  it('rejects a --position that is not an integer', () => {
+    const before = read();
+    const r = run([...ADD.slice(0, 4), TEMPLATE, '--key=C dorian', '--position=1,x']);
+    expect(r.code).toBe(2);
+    expect(r.out).toMatch(/--position/);
+    expect(read()).toBe(before);
+  });
+
+  // --- templated file values ---------------------------------------------------
+  // A template addresses a family, so the writer enforces the same coverage rule
+  // as tests/content.test.ts: every combination the app can roll exists on disk.
+
+  it('accepts a template whose whole key x position product exists', () => {
+    const r = run([...ADD.slice(0, 4), TEMPLATE, ...TEMPLATE_AXES]);
+    expect(r.code).toBe(0);
+    const cat = JSON.parse(read()).categories.find((c: any) => c.key === 'scales');
+    expect(cat.exercises.at(-1).file)
+      .toBe('notation/guitar/scales/dorian/{root}/p{position}.alphatex');
+  });
+
+  it('refuses a template with a gap in its product, naming every missing path', () => {
+    const before = read();
+    // E dorian and position 3 have no files; C/D at 1/2 do.
+    const r = run([
+      ...ADD.slice(0, 4), TEMPLATE, '--key=C dorian,E dorian', '--position=1,3',
+    ]);
+    expect(r.code).toBe(2);
+    expect(r.out).toContain('notation/guitar/scales/dorian/c/p3.alphatex');
+    expect(r.out).toContain('notation/guitar/scales/dorian/e/p1.alphatex');
+    expect(r.out).toContain('notation/guitar/scales/dorian/e/p3.alphatex');
+    expect(r.out).not.toContain('notation/guitar/scales/dorian/c/p1.alphatex');
+    expect(read()).toBe(before);
+  });
+
+  it('refuses {root} without --key, naming the missing flag', () => {
+    const before = read();
+    const r = run([...ADD.slice(0, 4), TEMPLATE, '--position=1,2']);
+    expect(r.code).toBe(2);
+    expect(r.out).toMatch(/--key/);
+    expect(read()).toBe(before);
+  });
+
+  it('refuses {position} without --position, naming the missing flag', () => {
+    const before = read();
+    const r = run([...ADD.slice(0, 4), TEMPLATE, '--key=C dorian']);
+    expect(r.code).toBe(2);
+    expect(r.out).toMatch(/--position/);
+    expect(read()).toBe(before);
+  });
+
+  it('refuses an unknown placeholder', () => {
+    const before = read();
+    const r = run([
+      ...ADD.slice(0, 4),
+      '--file=notation/guitar/scales/dorian/{root}/{mode}.alphatex',
+      '--key=C dorian',
+    ]);
+    expect(r.code).toBe(2);
+    expect(r.out).toMatch(/\{mode\}/);
+    expect(read()).toBe(before);
+  });
+
+  it('refuses --position when the file has no {position} placeholder', () => {
+    // position[] over a fixed path renders "pos N" while selecting nothing —
+    // content.test.ts's "never rolls an axis its file does not select" rejects it.
+    const before = read();
+    const r = run([...ADD, '--position=1,2']);
+    expect(r.code).toBe(2);
+    expect(r.out).toMatch(/--position/);
+    expect(read()).toBe(before);
+  });
+
+  it('still accepts key[] with no {root}: a movable shape uses the key as a prompt', () => {
+    const r = run([...ADD, '--key=C major,D major']);
+    expect(r.code).toBe(0);
+    const cat = JSON.parse(read()).categories.find((c: any) => c.key === 'scales');
+    expect(cat.exercises.at(-1).key).toEqual(['C major', 'D major']);
+  });
+
+  it('refuses a template with a bad extension, same as a literal path', () => {
+    const before = read();
+    const r = run([
+      ...ADD.slice(0, 4),
+      '--file=notation/guitar/scales/dorian/{root}/p{position}.txt',
+      ...TEMPLATE_AXES,
+    ]);
+    expect(r.code).toBe(2);
+    expect(r.out).toMatch(/extension/);
     expect(read()).toBe(before);
   });
 

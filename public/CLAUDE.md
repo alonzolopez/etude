@@ -19,9 +19,11 @@ and `position` — `notation/guitar/scales/dorian/{root}/p{position}.alphatex` w
 `key: ["A# dorian", …]` and `position: [1..5]` resolves to
 `notation/guitar/scales/dorian/a-sharp/p3.alphatex`. `#` is spelled `-sharp` because
 `fetch` reads `#` as a URL fragment; paths are lowercase because GitHub Pages is
-case-sensitive. The `key[]` and `position[]` arrays are the coverage declaration:
-`tests/content.test.ts` expands every combination and fails if a file is missing, so
-list a value only once its file exists.
+case-sensitive. For the axes the `file` template references, `key[]` and `position[]`
+are the coverage declaration: `tests/content.test.ts` expands every combination and
+reports every missing file, so list such a value only once its file exists. An axis the
+template does not name multiplies nothing — a literal `file` with twelve keys is one
+movable shape drawn under twelve transposition prompts, not twelve files.
 
 Write these files with `.claude/skills/_notation/scripts/add-exercise.mjs`, not by
 hand and never with a whole-file dump: they are 2-space-indented with **no trailing

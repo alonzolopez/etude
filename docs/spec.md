@@ -420,6 +420,7 @@ etude/
     notation/               # authored/exported notation, one subtree per instrument
       guitar/               # scales/<mode>/<root>/p<N>.alphatex, arpeggios/<chord>/<root>/…
       bass/
+      drums/
     click.mp3
   src/
     main.ts                 # boot, screen switching
@@ -522,8 +523,8 @@ given a YouTube or GrooveScribe URL, a Soundslice export (GPX/MusicXML), or
 notation Claude generates itself (MusicXML or alphaTex — alphaTab renders both),
 plus metadata (instrument, category, title, weight, optional
 key/position/metronome_range/description), a skill validates against §2.1, places any
-notation file under `public/notation/`, and inserts the exercise into the right
-`public/exercises/*.json` — creating a category when needed, normalizing per
+notation file under `public/notation/<instrument>/`, and inserts the exercise into the
+right `public/exercises/*.json` — creating a category when needed, normalizing per
 §2.2's rules. A companion skill drives the incremental Soundslice → notation
 conversion. The §2.1 file shapes are the contract these skills target; the
 implementer builds nothing for this, but should not make the content files

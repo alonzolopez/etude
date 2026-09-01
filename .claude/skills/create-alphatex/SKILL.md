@@ -129,6 +129,20 @@ node .claude/skills/_notation/scripts/add-exercise.mjs \
   --metronome=60,130 --description="..."
 ```
 
+A family of per-position files is one call with a templated `--file`:
+
+```bash
+node .claude/skills/_notation/scripts/add-exercise.mjs \
+  --instrument=guitar --category=scales \
+  --title="Dorian scale" --weight=1 \
+  --file="notation/guitar/scales/dorian/{root}/p{position}.alphatex" \
+  --key="A dorian,A# dorian,B dorian,…" --position=1,2,3,4,5
+```
+
+Quote the template so the shell does not eat the braces. The script expands the
+whole product and refuses the call if any file is missing, so a gap surfaces here
+rather than at `npx vitest run`.
+
 One call per exercise. It enforces field order, refuses dead fields and duplicate
 titles, and preserves the files' exact bytes (2-space, no trailing newline) — never
 hand-edit or reformat these files, and never write them with a whole-file dump.
@@ -143,9 +157,12 @@ carries `position[]` and a `{root}`/`{position}` template. Notation fixed to one
 position — a two-octave C major in 8th position — carries neither, because a drawn key
 would contradict what is on screen.
 
-**Only list a key or position whose file exists.** `tests/content.test.ts` expands every
-combination of `key[] × position[]` through the template and fails on the first missing
-file, so the arrays are the corpus's coverage declaration. Add values as files land.
+**Only list a key or position whose file exists — for the axes the template names.**
+`tests/content.test.ts` expands `key[] × position[]` through the template, but iterates
+an array only when the template references its placeholder, so the arrays are the
+corpus's coverage declaration for those axes alone. The movable shape above keeps its
+full `key[]` against a literal path; nothing expands. The gate collects every missing
+path and reports them together, so add values as files land.
 
 **A pattern that runs the neck is a separate exercise, not a sixth position.** Up-the-neck,
 one-string, and two-octave shapes get their own entry with no `{position}` placeholder and
