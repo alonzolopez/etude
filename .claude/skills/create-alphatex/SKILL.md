@@ -77,7 +77,25 @@ installed alphaTab 1.8.4 and lists six spellings that look correct and are parse
 errors (`:4.`, a bare `-` tie, `\tuning drop-d`, `{text}`, `\ks Am`, named drum
 articulations). Do not write alphaTex from memory.
 
-For a batch, write every file before validating any — then validate each.
+**A full family across all 12 roots is a shape table plus one command, not N
+hand-written files.** Author the fingering once per position at a reference root
+as `.claude/skills/_notation/shapes/<family>.json` — the three committed tables
+(`minor-pentatonic.json`, `ionian-caged.json`, `ionian-3nps.json`) are the schema
+reference: `dir`, `keySignature` (`major` or `relative-major`), `titleTemplate`,
+and `shapes[]`. Then:
+
+```bash
+node .claude/skills/_notation/scripts/generate-scale-family.mjs \
+  .claude/skills/_notation/shapes/<family>.json [--dry-run] [--roots=A,C]
+```
+
+moves the shape by one fret offset per root — never per note — and writes every
+`public/notation/guitar/scales/<dir>/<root>/p<N>.alphatex` file.
+`tests/scale-corpus.test.ts` regenerates the whole corpus from its tables on
+every run, so a committed file and its table can never drift apart silently.
+Still run step 4 on a sample before wiring the family up.
+
+For a batch written by hand, write every file before validating any — then validate each.
 
 ### 4. Prove it parses, then prove it is right
 

@@ -23,7 +23,10 @@ Soundslice cards permanently (spec §2.2):
 Shared tooling in `.claude/skills/_notation/scripts/`: `find-exercise`,
 `validate-notation` (parses), `describe-score` (reads the notes back out as
 pitches), `add-exercise` (the only thing that should write `public/exercises/*.json`
-— they are 2-space with no trailing newline).
+— they are 2-space with no trailing newline), `generate-scale-family` (the only
+thing that should write `public/notation/guitar/scales/*` — regenerates one
+positional family from its shape table in `.claude/skills/_notation/shapes/`;
+`tests/scale-corpus.test.ts` proves the two never drift).
 
 ## Previewing notation
 `preview.html` renders notation files through the production path
