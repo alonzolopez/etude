@@ -43,6 +43,39 @@ function pick<T>(arr: T[], rand: () => number): T {
   return arr[Math.min(arr.length - 1, Math.floor(rand() * arr.length))]!;
 }
 
+const ROOT_TOKEN = /^([A-G])([#b]?)/;
+
+/**
+ * The pitch-class slug of a key string: "A# dorian" -> "a-sharp".
+ * Only the leading note token is read, so the quality ("ionian #5") is ignored.
+ * `#` must never survive into a path: fetch() reads it as a URL fragment and
+ * silently requests the truncated path instead.
+ */
+export function rootSlug(key: string): string {
+  const m = ROOT_TOKEN.exec(key.trim());
+  if (!m) throw new Error(`unparseable key: "${key}"`);
+  const accidental = m[2] === '#' ? '-sharp' : m[2] === 'b' ? '-flat' : '';
+  return m[1]!.toLowerCase() + accidental;
+}
+
+/**
+ * Expand an exercise's `file` against one rolled variant. A path with no
+ * placeholders comes back unchanged, so literal `file` values are unaffected.
+ */
+export function resolveFile(file: string, key?: string, position?: number): string {
+  return file.replace(/\{(\w+)\}/g, (_, name: string) => {
+    if (name === 'root') {
+      if (key === undefined) throw new Error(`{root} needs a rolled key: ${file}`);
+      return rootSlug(key);
+    }
+    if (name === 'position') {
+      if (position === undefined) throw new Error(`{position} needs a rolled position: ${file}`);
+      return String(position);
+    }
+    throw new Error(`unknown placeholder {${name}} in ${file}`);
+  });
+}
+
 export function materialize(
   ex: Exercise,
   category: Category,

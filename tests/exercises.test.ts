@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { classify, weightedDraw, materialize, type Exercise, type Category } from '../src/exercises';
+import { classify, weightedDraw, materialize, rootSlug, resolveFile, type Exercise, type Category } from '../src/exercises';
 
 const ex = (over: Partial<Exercise>): Exercise => ({ title: 't', weight: 1, ...over });
 
@@ -42,5 +42,43 @@ describe('materialize', () => {
     expect(inst.key).toBeUndefined();
     expect(inst.mode).toBeUndefined();
     expect(inst.bpm).toBeUndefined();
+  });
+});
+
+describe('rootSlug', () => {
+  it('spells accidentals out so # never reaches a fetched path', () => {
+    expect(rootSlug('A# dorian')).toBe('a-sharp');
+    expect(rootSlug('Bb major blues')).toBe('b-flat');
+  });
+  it('lowercases naturals', () => {
+    expect(rootSlug('C')).toBe('c');
+    expect(rootSlug('B major blues')).toBe('b');
+  });
+  it('reads only the leading note token, ignoring the quality', () => {
+    expect(rootSlug('A# ionian #5')).toBe('a-sharp');
+    expect(rootSlug('G altered bb7')).toBe('g');
+  });
+  it('throws on an unparseable key', () => {
+    expect(() => rootSlug('H minor')).toThrow(/unparseable key/);
+  });
+});
+
+describe('resolveFile', () => {
+  const tpl = 'notation/guitar/scales/dorian/{root}/p{position}.alphatex';
+  it('expands root and position', () => {
+    expect(resolveFile(tpl, 'A# dorian', 3))
+      .toBe('notation/guitar/scales/dorian/a-sharp/p3.alphatex');
+  });
+  it('returns a literal path untouched', () => {
+    expect(resolveFile('notation/guitar/minor-pentatonic.gpx'))
+      .toBe('notation/guitar/minor-pentatonic.gpx');
+  });
+  it('throws when a placeholder has no rolled value', () => {
+    expect(() => resolveFile(tpl, 'A# dorian')).toThrow(/needs a rolled position/);
+    expect(() => resolveFile(tpl, undefined, 3)).toThrow(/needs a rolled key/);
+  });
+  it('throws on an unknown placeholder, so a stale {mode} fails loudly', () => {
+    expect(() => resolveFile('x/{mode}.alphatex', 'A minor', 1))
+      .toThrow(/unknown placeholder \{mode\}/);
   });
 });
