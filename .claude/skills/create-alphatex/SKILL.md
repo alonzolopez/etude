@@ -62,9 +62,15 @@ description tone are conventions to match, not values to invent.
 
 ### 3. Write the alphaTex
 
-`public/notation/<kebab-case-slug>.alphatex` — the extension **must** be
-`.alphatex`, `.atex`, or `.tex`, or `src/notation.ts:13` loads it as binary and
-renders nothing.
+`public/notation/<instrument>/<family>/<root>/p<N>.alphatex` for positional variants,
+or `public/notation/<instrument>/<kebab-case-slug>.alphatex` for a one-off. The
+extension **must** be `.alphatex`, `.atex`, or `.tex`, or `src/notation.ts:13` loads it
+as binary and renders nothing.
+
+Roots are spelled `a`, `a-sharp`, `b-flat` — never `a#`, which `fetch` reads as a URL
+fragment — and every path segment is lowercase, because GitHub Pages is case-sensitive
+where macOS is not. The exercise's `file` names the family with placeholders:
+`notation/guitar/scales/dorian/{root}/p{position}.alphatex`.
 
 **Read `reference/alphatex.md` before writing.** It is verified against the
 installed alphaTab 1.8.4 and lists six spellings that look correct and are parse
@@ -76,8 +82,8 @@ For a batch, write every file before validating any — then validate each.
 ### 4. Prove it parses, then prove it is right
 
 ```bash
-node .claude/skills/_notation/scripts/validate-notation.mjs public/notation/<name>.alphatex
-node .claude/skills/_notation/scripts/describe-score.mjs  public/notation/<name>.alphatex --expect=C,D,E,F,G,A,B
+node .claude/skills/_notation/scripts/validate-notation.mjs public/notation/<instrument>/<name>.alphatex
+node .claude/skills/_notation/scripts/describe-score.mjs  public/notation/<instrument>/<name>.alphatex --expect=C,D,E,F,G,A,B
 ```
 
 `validate-notation` proves it parses. `describe-score` prints every bar back as
@@ -130,12 +136,23 @@ hand-edit or reformat these files, and never write them with a whole-file dump.
 A new category needs `--create-category="Display Name"`; category order is wizard
 display order.
 
-**`key[]` and `mode[]` depend on whether the notation is movable.** A shape that
-transposes — a pentatonic box, a movable arpeggio form — carries the category's
-full `key[]`/`mode[]`, and the drawn key is the transposition prompt.
-Notation fixed to one key and position — a two-octave C major in 8th position —
-carries neither, because a drawn key would contradict what is on screen. Match the
-sibling exercises when unsure, and say which you chose.
+**`key[]` and `position[]` depend on whether the notation is movable.** A shape that
+transposes — a pentatonic box, a movable arpeggio form — carries the category's full
+`key[]`, and the drawn key is the transposition prompt. A family of per-position files
+carries `position[]` and a `{root}`/`{position}` template. Notation fixed to one key and
+position — a two-octave C major in 8th position — carries neither, because a drawn key
+would contradict what is on screen.
+
+**Only list a key or position whose file exists.** `tests/content.test.ts` expands every
+combination of `key[] × position[]` through the template and fails on the first missing
+file, so the arrays are the corpus's coverage declaration. Add values as files land.
+
+**A pattern that runs the neck is a separate exercise, not a sixth position.** Up-the-neck,
+one-string, and two-octave shapes get their own entry with no `{position}` placeholder and
+no `position[]` — the file sits beside the position files
+(`scales/minor-pentatonic/{root}/up-the-neck.alphatex`). A value inside `position[]` would
+render as `pos 6`, which is a lie, and could not carry its own `metronome_range`, weight,
+or description.
 
 ### 7. Verify and commit
 

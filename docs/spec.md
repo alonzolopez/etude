@@ -75,9 +75,9 @@ Per exercise:
 | `title` | string, required | shown as the exercise title |
 | `weight` | number, required | relative draw probability within its category |
 | `url` | string, optional | Soundslice secret link, YouTube embed, or GrooveScribe URL |
-| `file` | string, optional | repo path under `public/notation/` to a Guitar Pro, MusicXML, or alphaTex file; takes precedence over `url` |
+| `file` | string, optional | repo path under `public/notation/<instrument>/` to a Guitar Pro, MusicXML, or alphaTex file; may contain `{root}` and `{position}` placeholders, expanded per draw; takes precedence over `url` |
 | `key` | string[], optional | one drawn at random per load |
-| `mode` | int[], optional | one drawn at random, shown as `, mode N` |
+| `position` | int[], optional | one drawn at random, shown as `pos N` |
 | `metronome_range` | [int, int], optional | bpm drawn uniformly (integer, inclusive) per load |
 | `description` | string, optional | body text |
 
@@ -104,8 +104,8 @@ host classifies:
    gracefully rather than erroring.
 5. **Text** — no `url`, no `file`.
 
-The fields `images`, `example`, `backing_track`, `starting_string`, and
-`original_key` are **removed from the schema and never read**. Unknown fields in the
+The fields `images`, `example`, `backing_track`, `starting_string`, `original_key`, and
+`mode` are **removed from the schema and never read**. Unknown fields in the
 JSON are ignored, not errors.
 
 Text exercises are flagged as *possibly temporary* — the owner may later convert
@@ -184,12 +184,12 @@ checkbox home page.
 
 ### 3.2 Practice screen
 
-Layout (approved from the direction-board mockup): title and key/mode line top-left;
+Layout (approved from the direction-board mockup): title and key/position line top-left;
 session timer top-right; embed area center (visually dominant); metronome unit and
 transport in a bottom bar.
 
 - **Title + key line.** Key line renders only the parts that exist: random key from
-  `key[]`, `, mode N` from `mode[]`.
+  `key[]`, ` · pos N` from `position[]`.
 - **Content area.** By exercise type: notation renders alphaTab's surface (with
   its playback cursor), themed per §7; YouTube/GrooveScribe render an iframe; a
   Soundslice exercise renders its **card** — title, key line, rolled bpm,
@@ -211,8 +211,9 @@ transport in a bottom bar.
 - **Draw:** weighted random **with replacement** within the session's one category.
   Repeats are accepted behavior (the owner wants e.g. Dorian twice in different
   keys; `→` is the skip). No repeat-avoidance logic.
-- **Materialization:** at draw time, roll key, mode, and bpm. The displayed exercise
-  is an *instance*; see §5 history.
+- **Materialization:** at draw time, roll key, position, and bpm, then expand the
+  exercise's `file` template against those rolls. The displayed exercise is an
+  *instance*; see §5 history.
 - **Timer:** derives remaining time from wall-clock deltas (`Date.now()` against a
   stored start instant), never from accumulated tick counts — background-tab
   throttling must not bend it. No pause facility (parity with today).
@@ -270,8 +271,9 @@ anywhere in the parent chrome re-arms them.
 ## 5. Back navigation (history)
 
 The history is a stack of **materialized instances** — `{categoryKey, exercise
-title/index, rolled key, rolled mode, current bpm, url or file}` — never bare exercise ids,
-because a re-draw would produce a different key/mode/bpm and make "back" pointless.
+title/index, rolled key, rolled position, current bpm, url or resolved file}` — never bare
+exercise ids, because a re-draw would produce a different key/position/bpm and make "back"
+pointless.
 
 - `←` restores the previous instance **exactly**, including bpm. If the user tweaks
   bpm during an exercise, the tweak is written into the instance, so back/forward
@@ -415,7 +417,9 @@ etude/
       guitar.json           # the content — edit here, push, live in ~1 min
       bass.json
       drums.json
-    notation/               # exported/authored Guitar Pro & MusicXML files
+    notation/               # authored/exported notation, one subtree per instrument
+      guitar/               # scales/<mode>/<root>/p<N>.alphatex, arpeggios/<chord>/<root>/…
+      bass/
     click.mp3
   src/
     main.ts                 # boot, screen switching
@@ -453,7 +457,7 @@ step: enable Pages (source: GitHub Actions) in repo settings.
 ### 9.4 Testing
 
 - **Vitest** on pure logic: weighted draw distribution and edge cases;
-  materialization ranges (key/mode membership, bpm bounds inclusive); history stack
+  materialization ranges (key/position membership, bpm bounds inclusive); history stack
   semantics (back/forward/truncate, bpm-tweak write-back); timer math
   (wall-clock, overtime transition); scheduler lookahead math against a mocked
   clock/context; hotkey layer routing incl. the focus rule.
@@ -517,7 +521,7 @@ repo** for adding new exercises. Sketch, so a future session can pick this up:
 given a YouTube or GrooveScribe URL, a Soundslice export (GPX/MusicXML), or
 notation Claude generates itself (MusicXML or alphaTex — alphaTab renders both),
 plus metadata (instrument, category, title, weight, optional
-key/mode/metronome_range/description), a skill validates against §2.1, places any
+key/position/metronome_range/description), a skill validates against §2.1, places any
 notation file under `public/notation/`, and inserts the exercise into the right
 `public/exercises/*.json` — creating a category when needed, normalizing per
 §2.2's rules. A companion skill drives the incremental Soundslice → notation

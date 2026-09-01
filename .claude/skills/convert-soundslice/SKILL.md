@@ -37,7 +37,7 @@ node .claude/skills/_notation/scripts/find-exercise.mjs "<title|url|slice-id>" [
 Exit 0 = one match (proceed). Exit 4 = ambiguous. Exit 3 = none. The report flags
 song-sync risk and prints the exercise JSON verbatim. Honor the hard stops above.
 
-**2. Place the file.** `public/notation/<kebab-case-slug>.<ORIGINAL extension>`
+**2. Place the file.** `public/notation/<instrument>/<kebab-case-slug>.<ORIGINAL extension>`
 
 - Slug from the **exercise title**: lowercase, non-alphanumerics → `-`, collapse
   repeats. If a sibling file already covers a related exercise, match its convention
@@ -52,7 +52,7 @@ song-sync risk and prints the exercise JSON verbatim. Honor the hard stops above
 **3. Parse-validate headlessly — before touching JSON.**
 
 ```bash
-node .claude/skills/_notation/scripts/validate-notation.mjs public/notation/<name>
+node .claude/skills/_notation/scripts/validate-notation.mjs public/notation/<instrument>/<name>
 ```
 
 Runs alphaTab's own importer (`ScoreLoader`), the same one the app uses at runtime,
@@ -67,17 +67,18 @@ slice means the wrong export.
            "title": "Minor pentatonic scale",
            "weight": 2,
 -          "url": "https://www.soundslice.com/slices/-scqc/",
-+          "file": "notation/minor-pentatonic.gpx",
++          "file": "notation/guitar/minor-pentatonic.gpx",
 ```
 
 - The value is `notation/<name>` — **relative to `public/`**, no `public/` prefix
   (`tests/content.test.ts` checks `public/${ex.file}`).
 - Keeping `file` in the url's slot preserves field order and keeps the diff to one
   line. Verify with `git diff --stat`: **one file, 1 insertion, 1 deletion.**
-- Touch nothing else: `title`, `weight`, `key`, `mode`, `metronome_range`,
-  `description` stay exactly as they are.
+- Touch nothing else: `title`, `weight`, `key`, `position`, `metronome_range`,
+  `description` stay exactly as they are. `mode` was removed from the schema — if you
+  find one, that is a separate fix, not part of this conversion.
 - Never re-add `images`, `example`, `backing_track`, `starting_string`,
-  `original_key` — removed from the schema and never read.
+  `original_key`, `mode` — removed from the schema and never read.
 - Never reformat the file. These are 2-space-indented with **no trailing newline**
   (`JSON.stringify(data, null, 2)` reproduces them byte-for-byte). A whole-file
   rewrite that adds a newline turns a 1-line diff into a 1000-line one.
@@ -120,7 +121,7 @@ bytes:
 node .claude/skills/_notation/scripts/add-exercise.mjs \
   --instrument=guitar --category=scales \
   --title="<required>" --weight=1 --file=notation/<name> \
-  [--key=...] [--mode=1,2] [--metronome=60,130] [--description="..."] \
+  [--key=...] [--position=1,2,3] [--metronome=60,130] [--description="..."] \
   [--create-category="Display Name"]
 ```
 
