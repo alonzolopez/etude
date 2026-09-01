@@ -35,6 +35,7 @@
     <script type="module">
       import './src/styles/tokens.css';
       import { mountNotation } from './src/notation.ts';
+      import { resolveFile } from './src/exercises.ts';
 
       const main = document.getElementById('main');
       const params = new URLSearchParams(location.search);
@@ -131,8 +132,24 @@
         for (const inst of index.instruments) {
           const data = await (await fetch(`${base}exercises/${inst.file}`)).json();
           for (const cat of data.categories)
-            for (const ex of cat.exercises)
-              if (ex.file) rows.push({ inst: inst.id, cat: cat.name, ex });
+            for (const ex of cat.exercises) {
+              if (!ex.file) continue;
+              // A templated `file` names a family, not a file: linking it verbatim
+              // would fetch a literal "{root}" and render nothing. Link one real
+              // variant and say how many the family holds.
+              if (!ex.file.includes('{')) {
+                rows.push({ inst: inst.id, cat: cat.name, title: ex.title, path: ex.file, meta: ex.file });
+                continue;
+              }
+              const keys = ex.file.includes('{root}') ? ex.key ?? [] : [undefined];
+              const positions = ex.file.includes('{position}') ? ex.position ?? [] : [undefined];
+              let path = null;
+              try { path = resolveFile(ex.file, keys[0], positions[0]); } catch { /* unresolvable: no link */ }
+              rows.push({
+                inst: inst.id, cat: cat.name, title: ex.title, path,
+                meta: `${ex.file} — ${keys.length * positions.length} variants${path ? `, showing ${path}` : ''}`,
+              });
+            }
         }
         return rows;
       }
@@ -158,14 +175,19 @@
           const rows = await listAll();
           const ul = document.createElement('ul');
           ul.className = 'all';
-          for (const { inst, cat, ex } of rows) {
+          for (const { inst, cat, title, path, meta } of rows) {
             const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = `?files=${encodeURIComponent(ex.file)}`;
-            a.textContent = ex.title;
-            li.append(a, Object.assign(document.createElement('span'), {
+            if (path) {
+              const a = document.createElement('a');
+              a.href = `?files=${encodeURIComponent(path)}`;
+              a.textContent = title;
+              li.append(a);
+            } else {
+              li.append(Object.assign(document.createElement('span'), { textContent: title }));
+            }
+            li.append(Object.assign(document.createElement('span'), {
               className: 'meta',
-              textContent: ` — ${inst} / ${cat} — ${ex.file}`,
+              textContent: ` — ${inst} / ${cat} — ${meta}`,
             }));
             ul.appendChild(li);
           }
