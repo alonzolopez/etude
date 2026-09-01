@@ -40,7 +40,7 @@
         {
           "title": "Minor pentatonic scale",
           "weight": 2,
-          "file": "notation/minor-pentatonic.gpx",
+          "file": "notation/guitar/minor-pentatonic.gpx",
           "key": [
             "A minor",
             "A# minor",
@@ -70,7 +70,7 @@
         {
           "title": "Minor pentatonic scale with b5",
           "weight": 2,
-          "file": "notation/minor-pentatonic-with-b5.gpx",
+          "file": "notation/guitar/minor-pentatonic-with-b5.gpx",
           "key": [
             "A minor",
             "A# minor",
@@ -247,7 +247,7 @@
         {
           "title": "The Diminished Scale",
           "weight": 1,
-          "file": "notation/the-diminished-scale.gpx",
+          "file": "notation/guitar/the-diminished-scale.gpx",
           "key": [
             "A diminished",
             "A# diminished",
@@ -270,7 +270,7 @@
         {
           "title": "The Dominant Diminished Scale",
           "weight": 1,
-          "file": "notation/the-dominant-diminished-scale.gpx",
+          "file": "notation/guitar/the-dominant-diminished-scale.gpx",
           "key": [
             "A dominant diminished",
             "A# dominant diminished",
@@ -294,7 +294,7 @@
         {
           "title": "The Altered Scale",
           "weight": 1,
-          "file": "notation/the-altered-scale.gpx",
+          "file": "notation/guitar/the-altered-scale.gpx",
           "key": [
             "A altered",
             "A# altered",
