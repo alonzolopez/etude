@@ -6,38 +6,6 @@
       "name": "Scales",
       "exercises": [
         {
-          "title": "Major scale practice",
-          "weight": 2,
-          "key": [
-            "A major",
-            "A# major",
-            "B major",
-            "C major",
-            "C# major",
-            "D major",
-            "D# major",
-            "E major",
-            "F major",
-            "F# major",
-            "G major",
-            "G# major"
-          ],
-          "mode": [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7
-          ],
-          "metronome_range": [
-            60,
-            130
-          ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
-        },
-        {
           "title": "Minor pentatonic scale",
           "weight": 2,
           "file": "notation/guitar/minor-pentatonic.gpx",
@@ -82,70 +50,6 @@
             60,
             130
           ]
-        },
-        {
-          "title": "Harmonic minor practice",
-          "weight": 2,
-          "key": [
-            "A harmonic minor",
-            "A# harmonic minor",
-            "B harmonic minor",
-            "C harmonic minor",
-            "C# harmonic minor",
-            "D harmonic minor",
-            "D# harmonic minor",
-            "E harmonic minor",
-            "F harmonic minor",
-            "F# harmonic minor",
-            "G harmonic minor",
-            "G# harmonic minor"
-          ],
-          "mode": [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7
-          ],
-          "metronome_range": [
-            60,
-            130
-          ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
-        },
-        {
-          "title": "Melodic minor practice",
-          "weight": 2,
-          "key": [
-            "A melodic minor",
-            "A# melodic minor",
-            "B melodic minor",
-            "C melodic minor",
-            "C# melodic minor",
-            "D melodic minor",
-            "D# melodic minor",
-            "E melodic minor",
-            "F melodic minor",
-            "F# melodic minor",
-            "G melodic minor",
-            "G# melodic minor"
-          ],
-          "mode": [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7
-          ],
-          "metronome_range": [
-            60,
-            130
-          ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth). Remember that the melodic minor scale can be thought of as the Major Ionian scale with a lowered 3rd, or Dorian with a raised 7th."
         },
         {
           "title": "Major Blues scale practice",
@@ -285,6 +189,489 @@
             60,
             130
           ]
+        },
+        {
+          "title": "Ionian scale practice",
+          "weight": 1,
+          "key": [
+            "A ionian",
+            "A# ionian",
+            "B ionian",
+            "C ionian",
+            "C# ionian",
+            "D ionian",
+            "D# ionian",
+            "E ionian",
+            "F ionian",
+            "F# ionian",
+            "G ionian",
+            "G# ionian"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Dorian scale practice",
+          "weight": 1,
+          "key": [
+            "A dorian",
+            "A# dorian",
+            "B dorian",
+            "C dorian",
+            "C# dorian",
+            "D dorian",
+            "D# dorian",
+            "E dorian",
+            "F dorian",
+            "F# dorian",
+            "G dorian",
+            "G# dorian"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Phrygian scale practice",
+          "weight": 1,
+          "key": [
+            "A phrygian",
+            "A# phrygian",
+            "B phrygian",
+            "C phrygian",
+            "C# phrygian",
+            "D phrygian",
+            "D# phrygian",
+            "E phrygian",
+            "F phrygian",
+            "F# phrygian",
+            "G phrygian",
+            "G# phrygian"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Lydian scale practice",
+          "weight": 1,
+          "key": [
+            "A lydian",
+            "A# lydian",
+            "B lydian",
+            "C lydian",
+            "C# lydian",
+            "D lydian",
+            "D# lydian",
+            "E lydian",
+            "F lydian",
+            "F# lydian",
+            "G lydian",
+            "G# lydian"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Mixolydian scale practice",
+          "weight": 1,
+          "key": [
+            "A mixolydian",
+            "A# mixolydian",
+            "B mixolydian",
+            "C mixolydian",
+            "C# mixolydian",
+            "D mixolydian",
+            "D# mixolydian",
+            "E mixolydian",
+            "F mixolydian",
+            "F# mixolydian",
+            "G mixolydian",
+            "G# mixolydian"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Aeolian scale practice",
+          "weight": 1,
+          "key": [
+            "A aeolian",
+            "A# aeolian",
+            "B aeolian",
+            "C aeolian",
+            "C# aeolian",
+            "D aeolian",
+            "D# aeolian",
+            "E aeolian",
+            "F aeolian",
+            "F# aeolian",
+            "G aeolian",
+            "G# aeolian"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Locrian scale practice",
+          "weight": 1,
+          "key": [
+            "A locrian",
+            "A# locrian",
+            "B locrian",
+            "C locrian",
+            "C# locrian",
+            "D locrian",
+            "D# locrian",
+            "E locrian",
+            "F locrian",
+            "F# locrian",
+            "G locrian",
+            "G# locrian"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Harmonic minor scale practice",
+          "weight": 1,
+          "key": [
+            "A harmonic minor",
+            "A# harmonic minor",
+            "B harmonic minor",
+            "C harmonic minor",
+            "C# harmonic minor",
+            "D harmonic minor",
+            "D# harmonic minor",
+            "E harmonic minor",
+            "F harmonic minor",
+            "F# harmonic minor",
+            "G harmonic minor",
+            "G# harmonic minor"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Locrian natural 6 practice",
+          "weight": 1,
+          "key": [
+            "A locrian nat6",
+            "A# locrian nat6",
+            "B locrian nat6",
+            "C locrian nat6",
+            "C# locrian nat6",
+            "D locrian nat6",
+            "D# locrian nat6",
+            "E locrian nat6",
+            "F locrian nat6",
+            "F# locrian nat6",
+            "G locrian nat6",
+            "G# locrian nat6"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Ionian #5 practice",
+          "weight": 1,
+          "key": [
+            "A ionian #5",
+            "A# ionian #5",
+            "B ionian #5",
+            "C ionian #5",
+            "C# ionian #5",
+            "D ionian #5",
+            "D# ionian #5",
+            "E ionian #5",
+            "F ionian #5",
+            "F# ionian #5",
+            "G ionian #5",
+            "G# ionian #5"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Dorian #4 practice",
+          "weight": 1,
+          "key": [
+            "A dorian #4",
+            "A# dorian #4",
+            "B dorian #4",
+            "C dorian #4",
+            "C# dorian #4",
+            "D dorian #4",
+            "D# dorian #4",
+            "E dorian #4",
+            "F dorian #4",
+            "F# dorian #4",
+            "G dorian #4",
+            "G# dorian #4"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Phrygian dominant practice",
+          "weight": 1,
+          "key": [
+            "A phrygian dominant",
+            "A# phrygian dominant",
+            "B phrygian dominant",
+            "C phrygian dominant",
+            "C# phrygian dominant",
+            "D phrygian dominant",
+            "D# phrygian dominant",
+            "E phrygian dominant",
+            "F phrygian dominant",
+            "F# phrygian dominant",
+            "G phrygian dominant",
+            "G# phrygian dominant"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Lydian #2 practice",
+          "weight": 1,
+          "key": [
+            "A lydian #2",
+            "A# lydian #2",
+            "B lydian #2",
+            "C lydian #2",
+            "C# lydian #2",
+            "D lydian #2",
+            "D# lydian #2",
+            "E lydian #2",
+            "F lydian #2",
+            "F# lydian #2",
+            "G lydian #2",
+            "G# lydian #2"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Altered bb7 practice",
+          "weight": 1,
+          "key": [
+            "A altered bb7",
+            "A# altered bb7",
+            "B altered bb7",
+            "C altered bb7",
+            "C# altered bb7",
+            "D altered bb7",
+            "D# altered bb7",
+            "E altered bb7",
+            "F altered bb7",
+            "F# altered bb7",
+            "G altered bb7",
+            "G# altered bb7"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Melodic minor scale practice",
+          "weight": 1,
+          "key": [
+            "A melodic minor",
+            "A# melodic minor",
+            "B melodic minor",
+            "C melodic minor",
+            "C# melodic minor",
+            "D melodic minor",
+            "D# melodic minor",
+            "E melodic minor",
+            "F melodic minor",
+            "F# melodic minor",
+            "G melodic minor",
+            "G# melodic minor"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth). Remember that the melodic minor scale can be thought of as the Major Ionian scale with a lowered 3rd, or Dorian with a raised 7th."
+        },
+        {
+          "title": "Dorian b2 practice",
+          "weight": 1,
+          "key": [
+            "A dorian b2",
+            "A# dorian b2",
+            "B dorian b2",
+            "C dorian b2",
+            "C# dorian b2",
+            "D dorian b2",
+            "D# dorian b2",
+            "E dorian b2",
+            "F dorian b2",
+            "F# dorian b2",
+            "G dorian b2",
+            "G# dorian b2"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Lydian augmented practice",
+          "weight": 1,
+          "key": [
+            "A lydian augmented",
+            "A# lydian augmented",
+            "B lydian augmented",
+            "C lydian augmented",
+            "C# lydian augmented",
+            "D lydian augmented",
+            "D# lydian augmented",
+            "E lydian augmented",
+            "F lydian augmented",
+            "F# lydian augmented",
+            "G lydian augmented",
+            "G# lydian augmented"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Lydian dominant practice",
+          "weight": 1,
+          "key": [
+            "A lydian dominant",
+            "A# lydian dominant",
+            "B lydian dominant",
+            "C lydian dominant",
+            "C# lydian dominant",
+            "D lydian dominant",
+            "D# lydian dominant",
+            "E lydian dominant",
+            "F lydian dominant",
+            "F# lydian dominant",
+            "G lydian dominant",
+            "G# lydian dominant"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Mixolydian b6 practice",
+          "weight": 1,
+          "key": [
+            "A mixolydian b6",
+            "A# mixolydian b6",
+            "B mixolydian b6",
+            "C mixolydian b6",
+            "C# mixolydian b6",
+            "D mixolydian b6",
+            "D# mixolydian b6",
+            "E mixolydian b6",
+            "F mixolydian b6",
+            "F# mixolydian b6",
+            "G mixolydian b6",
+            "G# mixolydian b6"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Locrian natural 2 practice",
+          "weight": 1,
+          "key": [
+            "A locrian nat2",
+            "A# locrian nat2",
+            "B locrian nat2",
+            "C locrian nat2",
+            "C# locrian nat2",
+            "D locrian nat2",
+            "D# locrian nat2",
+            "E locrian nat2",
+            "F locrian nat2",
+            "F# locrian nat2",
+            "G locrian nat2",
+            "G# locrian nat2"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
+        },
+        {
+          "title": "Altered scale practice",
+          "weight": 1,
+          "key": [
+            "A altered",
+            "A# altered",
+            "B altered",
+            "C altered",
+            "C# altered",
+            "D altered",
+            "D# altered",
+            "E altered",
+            "F altered",
+            "F# altered",
+            "G altered",
+            "G# altered"
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Sixteenth Triplet, Sixteenth)"
         }
       ]
     },

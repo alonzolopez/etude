@@ -105,7 +105,7 @@ describe('content files', () => {
               expect(ex.metronome_range).toHaveLength(2);
               expect(ex.metronome_range[0]).toBeLessThanOrEqual(ex.metronome_range[1]);
             }
-            for (const dead of ['images', 'example', 'backing_track', 'starting_string', 'original_key'])
+            for (const dead of ['images', 'example', 'backing_track', 'starting_string', 'original_key', 'mode'])
               expect(ex).not.toHaveProperty(dead);
           }
       });
