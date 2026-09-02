@@ -35,6 +35,14 @@ export function renderPractice(
   const kind = classify(inst.exercise);
   const kbd = (k: string) => `<kbd class="kbd">${k}</kbd>`;
 
+  // The other three kinds print `description` inside .p-content themselves
+  // (Soundslice card, text exercise). Notation cannot: alphaTab owns that
+  // element — it is both its render target and its scrollElement — so the note
+  // goes underneath it as a sibling, where it also stays put while the score
+  // scrolls. Omitted entirely when there is no description, so an exercise
+  // without one gives the staff every pixel it had before.
+  const note = kind === 'notation' ? inst.exercise.description : undefined;
+
   app.innerHTML = `
     <div class="practice">
       <header class="p-top">
@@ -45,6 +53,7 @@ export function renderPractice(
         <div class="p-timer" aria-live="off">${timer.formatted()}</div>
       </header>
       <div class="p-content"></div>
+      ${note ? `<p class="p-note">${esc(note)}</p>` : ''}
       <footer class="p-bottom">
         <div class="metro">
           <span class="lamp"></span>

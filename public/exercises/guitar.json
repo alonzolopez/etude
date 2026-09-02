@@ -227,7 +227,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth)"
+          "description": "Play the CAGED chord grip named in the score title, then run the scale around it in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth); before moving on, find the 3rd and the 7th of that chord inside the shape"
         },
         {
           "title": "Harmonic minor scale practice",
@@ -719,7 +719,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 1 box twelve frets above its low placement — same fingering, upper half of the neck."
+          "description": "Play the CAGED chord grip named in the score title, then run the scale around it in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth); before moving on, find the 3rd and the 7th of that chord inside the shape. The position 1 box twelve frets above its low placement — same fingering, upper half of the neck."
         },
         {
           "title": "Ionian scale practice — position 2, octave up",
@@ -741,7 +741,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 2 box twelve frets above its low placement — same fingering, upper half of the neck."
+          "description": "Play the CAGED chord grip named in the score title, then run the scale around it in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth); before moving on, find the 3rd and the 7th of that chord inside the shape. The position 2 box twelve frets above its low placement — same fingering, upper half of the neck."
         },
         {
           "title": "Ionian scale practice — position 3, octave up",
@@ -763,7 +763,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 3 box twelve frets above its low placement — same fingering, upper half of the neck."
+          "description": "Play the CAGED chord grip named in the score title, then run the scale around it in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth); before moving on, find the 3rd and the 7th of that chord inside the shape. The position 3 box twelve frets above its low placement — same fingering, upper half of the neck."
         },
         {
           "title": "Ionian scale practice — position 4, octave up",
@@ -785,7 +785,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 4 box twelve frets above its low placement — same fingering, upper half of the neck."
+          "description": "Play the CAGED chord grip named in the score title, then run the scale around it in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth); before moving on, find the 3rd and the 7th of that chord inside the shape. The position 4 box twelve frets above its low placement — same fingering, upper half of the neck."
         },
         {
           "title": "Ionian scale practice — position 5, octave up",
@@ -807,7 +807,7 @@
             60,
             130
           ],
-          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 5 box twelve frets above its low placement — same fingering, upper half of the neck."
+          "description": "Play the CAGED chord grip named in the score title, then run the scale around it in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth); before moving on, find the 3rd and the 7th of that chord inside the shape. The position 5 box twelve frets above its low placement — same fingering, upper half of the neck."
         },
         {
           "title": "Ionian scale practice (three notes per string) — position 1, octave up",

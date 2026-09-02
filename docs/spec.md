@@ -197,6 +197,12 @@ transport in a bottom bar.
   text exercises show `description` (or, lacking one, the title alone, large) as
   well-set centered text — never an empty frame. All control flows through the
   parent page (§8); the user should never need to click inside an iframe.
+- **Notation's description.** A notation exercise with a `description` prints it
+  under the staff, as a sibling of the content area rather than inside it:
+  alphaTab owns that element (render target and scroll element both), and a
+  practice cue should stay put while the score scrolls. With no `description`
+  the element is not emitted at all, so the staff keeps every pixel — never an
+  empty box holding space open.
 - **Metronome unit** (§6): always present. With `metronome_range`: pre-set to the
   rolled bpm. Without: keeps its previous bpm. Never auto-plays.
 - **Transport:** Previous `←`, Next `→` (primary), Home `h`, each with keycap chips.

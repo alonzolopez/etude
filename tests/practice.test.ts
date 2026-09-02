@@ -103,6 +103,46 @@ describe('renderPractice content area', () => {
     expect(app.querySelector('iframe')).toBeNull();
   });
 
+  it('notation shows its description under the staff (spec §3.2)', () => {
+    const app = render({
+      file: 'notation/guitar/scales/ionian/a/p4.alphatex',
+      description: 'Play the CAGED chord grip named in the score title.',
+    });
+    const note = app.querySelector('.p-note');
+    expect(note?.textContent).toContain('Play the CAGED chord grip');
+    // a sibling of .p-content, not inside it: alphaTab owns that element
+    expect(app.querySelector('.p-content .p-note')).toBeNull();
+    expect(note?.previousElementSibling?.classList.contains('p-content')).toBe(true);
+  });
+
+  it('notation with no description holds no space open for one', () => {
+    const app = render({ file: 'notation/guitar/scales/ionian/a/p4.alphatex' });
+    expect(app.querySelector('.p-note')).toBeNull();
+  });
+
+  it('does not double up the note on kinds that print their own description', () => {
+    const withUrl = render({
+      url: 'https://www.soundslice.com/slices/xFhXc/',
+      description: 'Watch the shifts.',
+    });
+    expect(withUrl.querySelector('.p-note')).toBeNull();
+    expect(withUrl.querySelector('.ss-note')).not.toBeNull();
+
+    const text = render({ description: 'Practice slowly.' });
+    expect(text.querySelector('.p-note')).toBeNull();
+    expect(text.querySelector('.text-content')).not.toBeNull();
+  });
+
+  it('escapes a description rather than injecting markup', () => {
+    const app = render({
+      file: 'notation/guitar/scales/ionian/a/p4.alphatex',
+      description: 'Find the <b>3rd</b> & 7th',
+    });
+    const note = app.querySelector('.p-note')!;
+    expect(note.querySelector('b')).toBeNull();
+    expect(note.textContent).toBe('Find the <b>3rd</b> & 7th');
+  });
+
   it('mounts the resolved path, never the template', () => {
     vi.mocked(mountNotation).mockClear();
     render(

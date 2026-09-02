@@ -43,6 +43,9 @@ body.keys-disarmed .kbd { opacity: 0.35; }
 .p-content { flex: 1; margin: 0 24px; min-height: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: auto; position: relative; }
 .p-content iframe { width: 100%; height: 100%; border: 0; display: block; }
 .text-content { font-size: clamp(20px, 3vw, 28px); max-width: 30em; margin: 10vh auto; padding: 0 24px; text-align: center; }
+/* Notation's description, under the staff. Only emitted when the exercise has
+   one, so there is no empty box holding space open when it does not. */
+.p-note { flex: none; color: var(--muted); max-width: 60em; margin: 12px 24px 0; font-size: 15px; line-height: 1.45; }
 .ss-card { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 10vh 24px 0; text-align: center; }
 .ss-card .wizard-btn { font-size: 24px; padding: 20px 32px; margin-top: 12px; text-decoration: none; }
 .ss-title { font-family: var(--font-display); font-size: clamp(26px, 4vw, 38px); margin: 0; line-height: 1.05; }
