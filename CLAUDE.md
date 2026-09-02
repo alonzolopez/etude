@@ -22,10 +22,11 @@ Soundslice cards permanently (spec §2.2):
 
 Shared tooling in `.claude/skills/_notation/scripts/`: `find-exercise`,
 `validate-notation` (parses), `describe-score` (reads the notes back out as
-pitches), `add-exercise` and `set-weight` (the only two things that should write
-`public/exercises/*.json` — they are 2-space with no trailing newline;
-`add-exercise` appends, `set-weight` changes one exercise's draw weight in place),
-`generate-scale-family` (the only
+pitches), `add-exercise`, `set-weight` and `remove-exercise` (the only three things
+that should write `public/exercises/*.json` — they are 2-space with no trailing
+newline; `add-exercise` appends, `set-weight` changes one draw weight in place,
+`remove-exercise` deletes an entry and refuses one carrying notation without
+`--force`), `generate-scale-family` (the only
 thing that should write `public/notation/guitar/scales/*` — regenerates one
 positional family from its shape table in `.claude/skills/_notation/shapes/`;
 `tests/scale-corpus.test.ts` proves the two never drift).

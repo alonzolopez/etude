@@ -8,6 +8,11 @@ In the guitar `scales` category, weight 0 also means "notation not authored yet"
 the owner keeps the exercise listed as a visible TODO, and the category serves
 alphaTex only. So an entry there whose `file` is absent or is a `.gpx` carries
 weight 0 — set it with `set-weight.mjs`, and raise it once its `.alphatex` exists.
+An entry that is permanently *superseded* is removed with `remove-exercise.mjs`
+instead, not zeroed: a weight-0 entry reads as work still to do, and the six
+diatonic modal entries were work that must never be done — a three-notes-per-string
+position already is a mode (position N starts on degree N, so D ionian position 5
+is A mixolydian), so those six modes are routed to the ionian 3NPS corpus.
 
 Exercise fields: `title`* , `weight`* (≥0; 0 = disabled, never drawn), `url`,
 `file`, `key[]`, `position[]`,
