@@ -418,7 +418,8 @@ etude/
       bass.json
       drums.json
     notation/               # authored/exported notation, one subtree per instrument
-      guitar/               # scales/<mode>/<root>/p<N>.alphatex, arpeggios/<chord>/<root>/…
+      guitar/               # scales/<mode>/<root>/p<N>[-up].alphatex, arpeggios/<chord>/<root>/…
+                            #   p<N> = lowest placement of the shape, p<N>-up = twelve frets higher
       bass/
       drums/
     click.mp3

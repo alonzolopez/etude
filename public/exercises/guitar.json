@@ -721,6 +721,377 @@
             130
           ],
           "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N."
+        },
+        {
+          "title": "Minor pentatonic scale — position 1, octave up",
+          "weight": 0.4,
+          "file": "notation/guitar/scales/minor-pentatonic/{root}/p{position}-up.alphatex",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G minor",
+            "G# minor"
+          ],
+          "position": [
+            1
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 1 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Minor pentatonic scale — position 2, octave up",
+          "weight": 0.4,
+          "file": "notation/guitar/scales/minor-pentatonic/{root}/p{position}-up.alphatex",
+          "key": [
+            "A minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor",
+            "G minor",
+            "G# minor"
+          ],
+          "position": [
+            2
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 2 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Minor pentatonic scale — position 3, octave up",
+          "weight": 0.4,
+          "file": "notation/guitar/scales/minor-pentatonic/{root}/p{position}-up.alphatex",
+          "key": [
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor",
+            "F minor",
+            "F# minor"
+          ],
+          "position": [
+            3
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 3 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Minor pentatonic scale — position 4, octave up",
+          "weight": 0.4,
+          "file": "notation/guitar/scales/minor-pentatonic/{root}/p{position}-up.alphatex",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "D# minor",
+            "E minor"
+          ],
+          "position": [
+            4
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 4 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Minor pentatonic scale — position 5, octave up",
+          "weight": 0.4,
+          "file": "notation/guitar/scales/minor-pentatonic/{root}/p{position}-up.alphatex",
+          "key": [
+            "A minor",
+            "A# minor",
+            "B minor",
+            "C minor",
+            "C# minor",
+            "D minor",
+            "G minor",
+            "G# minor"
+          ],
+          "position": [
+            5
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 5 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice — position 1, octave up",
+          "weight": 0.2,
+          "file": "notation/guitar/scales/ionian/{root}/p{position}-up.alphatex",
+          "key": [
+            "C ionian",
+            "C# ionian",
+            "D ionian",
+            "D# ionian",
+            "E ionian",
+            "F ionian",
+            "F# ionian",
+            "G ionian"
+          ],
+          "position": [
+            1
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 1 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice — position 2, octave up",
+          "weight": 0.2,
+          "file": "notation/guitar/scales/ionian/{root}/p{position}-up.alphatex",
+          "key": [
+            "A ionian",
+            "A# ionian",
+            "B ionian",
+            "C ionian",
+            "C# ionian",
+            "D ionian",
+            "D# ionian"
+          ],
+          "position": [
+            2
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 2 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice — position 3, octave up",
+          "weight": 0.2,
+          "file": "notation/guitar/scales/ionian/{root}/p{position}-up.alphatex",
+          "key": [
+            "A ionian",
+            "A# ionian",
+            "B ionian",
+            "C ionian",
+            "C# ionian",
+            "G ionian",
+            "G# ionian"
+          ],
+          "position": [
+            3
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 3 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice — position 4, octave up",
+          "weight": 0.2,
+          "file": "notation/guitar/scales/ionian/{root}/p{position}-up.alphatex",
+          "key": [
+            "A ionian",
+            "A# ionian",
+            "E ionian",
+            "F ionian",
+            "F# ionian",
+            "G ionian",
+            "G# ionian"
+          ],
+          "position": [
+            4
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 4 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice — position 5, octave up",
+          "weight": 0.2,
+          "file": "notation/guitar/scales/ionian/{root}/p{position}-up.alphatex",
+          "key": [
+            "D ionian",
+            "D# ionian",
+            "E ionian",
+            "F ionian",
+            "F# ionian",
+            "G ionian",
+            "G# ionian"
+          ],
+          "position": [
+            5
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). The position 5 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice (three notes per string) — position 1, octave up",
+          "weight": 0.14,
+          "file": "notation/guitar/scales/ionian-3nps/{root}/p{position}-up.alphatex",
+          "key": [
+            "A ionian",
+            "E ionian",
+            "F ionian",
+            "F# ionian",
+            "G ionian",
+            "G# ionian"
+          ],
+          "position": [
+            1
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N. The position 1 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice (three notes per string) — position 2, octave up",
+          "weight": 0.14,
+          "file": "notation/guitar/scales/ionian-3nps/{root}/p{position}-up.alphatex",
+          "key": [
+            "D ionian",
+            "D# ionian",
+            "E ionian",
+            "F ionian",
+            "F# ionian",
+            "G ionian"
+          ],
+          "position": [
+            2
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N. The position 2 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice (three notes per string) — position 3, octave up",
+          "weight": 0.14,
+          "file": "notation/guitar/scales/ionian-3nps/{root}/p{position}-up.alphatex",
+          "key": [
+            "C ionian",
+            "C# ionian",
+            "D ionian",
+            "D# ionian",
+            "E ionian",
+            "F ionian"
+          ],
+          "position": [
+            3
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N. The position 3 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice (three notes per string) — position 4, octave up",
+          "weight": 0.14,
+          "file": "notation/guitar/scales/ionian-3nps/{root}/p{position}-up.alphatex",
+          "key": [
+            "B ionian",
+            "C ionian",
+            "C# ionian",
+            "D ionian",
+            "D# ionian"
+          ],
+          "position": [
+            4
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N. The position 4 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice (three notes per string) — position 5, octave up",
+          "weight": 0.14,
+          "file": "notation/guitar/scales/ionian-3nps/{root}/p{position}-up.alphatex",
+          "key": [
+            "A ionian",
+            "A# ionian",
+            "B ionian",
+            "C ionian",
+            "C# ionian",
+            "D ionian"
+          ],
+          "position": [
+            5
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N. The position 5 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice (three notes per string) — position 6, octave up",
+          "weight": 0.14,
+          "file": "notation/guitar/scales/ionian-3nps/{root}/p{position}-up.alphatex",
+          "key": [
+            "A ionian",
+            "A# ionian",
+            "B ionian",
+            "C ionian",
+            "G ionian",
+            "G# ionian"
+          ],
+          "position": [
+            6
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N. The position 6 box twelve frets above its low placement — same fingering, upper half of the neck."
+        },
+        {
+          "title": "Ionian scale practice (three notes per string) — position 7, octave up",
+          "weight": 0.14,
+          "file": "notation/guitar/scales/ionian-3nps/{root}/p{position}-up.alphatex",
+          "key": [
+            "A ionian",
+            "A# ionian",
+            "F ionian",
+            "F# ionian",
+            "G ionian",
+            "G# ionian"
+          ],
+          "position": [
+            7
+          ],
+          "metronome_range": [
+            60,
+            130
+          ],
+          "description": "Play the scale in a Rhythm Tree (Quarter, Eighth, Eighth Triplet, Sixteenth). Three notes per string; shape N begins on scale degree N. The position 7 box twelve frets above its low placement — same fingering, upper half of the neck."
         }
       ]
     },

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Regenerate one positional scale family's alphaTex corpus from its shape table.
 //
-// public/notation/guitar/scales/{minor-pentatonic,ionian,ionian-3nps}/ hold 60,
-// 60 and 84 files respectively. Every file in a family is the same fingering
+// public/notation/guitar/scales/{minor-pentatonic,ionian,ionian-3nps}/ hold 99,
+// 96 and 125 files respectively. Every file in a family is the same fingering
 // shape at a different fret offset, with a different title and key signature —
 // a pure function of (shape table, root). Hand-editing any one of those files
 // risks moving a note by a fret in isolation, or fixing a wrong pitch in one
@@ -16,9 +16,16 @@
 //
 // A shape is authored once at `referenceRoot` and moved by ONE fret offset for
 // the whole shape when transposed to another root — never per note, which would
-// collapse the interval pattern into a broken one. Rule: go up the neck first;
-// wrap down an octave if the shape would run off the neck (fret > NECK_CEIL);
-// wrap back up if that wrap would put it below fret 1.
+// collapse the interval pattern into a broken one.
+//
+// A shape usually fits the neck at TWO octaves, and both get written, because a
+// box practised only where the generator happened to land it leaves the other
+// half of the neck unfamiliar. `p<N>.alphatex` is the lowest placement that fits
+// (open strings allowed — fret 0 is a real note); `p<N>-up.alphatex` is the same
+// shape twelve frets higher, written only when it still fits under NECK_CEIL.
+// No shape here spans more than seven frets, so a third placement would need a
+// ~30-fret neck; planFamily() throws rather than silently dropping one if a
+// future table changes that.
 //
 // Every file plays the same rhythm tree: the shape ascending then descending
 // (without repeating the top note), four times over — as quarters, eighths,
@@ -44,6 +51,17 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const REPO = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..');
 
 export const NECK_CEIL = 22;
+// Fret 0 is an open string — a real note, spelled `0.6` (reference/alphatex.md).
+// It costs the box its bend and vibrato on that string, which is the owner's
+// accepted trade for reaching the lowest placement of shapes like G minor
+// pentatonic position 5.
+export const NECK_FLOOR = 0;
+// One entry per octave a shape fits at, lowest first: the file suffix and the
+// title suffix that say which placement this is.
+export const VARIANTS = [
+  { suffix: '', title: '' },
+  { suffix: '-up', title: ', octave up' },
+];
 export const PC = { A: 9, 'A#': 10, B: 11, C: 0, 'C#': 1, D: 2, 'D#': 3, E: 4, F: 5, 'F#': 6, G: 7, 'G#': 8 };
 export const ROOTS = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'];
 export const slug = (r) => r.replace('#', '-sharp').toLowerCase();
@@ -63,11 +81,13 @@ export function keySignatureFor(table, root) {
 }
 
 /** table.titleTemplate with {root}, {position} and {shape} substituted. */
-export function titleFor(table, root, shape) {
-  return table.titleTemplate
-    .replace(/\{root\}/g, root)
-    .replace(/\{position\}/g, String(shape.position))
-    .replace(/\{shape\}/g, shape.shape ?? '');
+export function titleFor(table, root, shape, variant = VARIANTS[0]) {
+  return (
+    table.titleTemplate
+      .replace(/\{root\}/g, root)
+      .replace(/\{position\}/g, String(shape.position))
+      .replace(/\{shape\}/g, shape.shape ?? '') + variant.title
+  );
 }
 
 // Ticks: a quarter is 12, so eighths (6), eighth triplets (4 — three to a
@@ -81,12 +101,17 @@ const PASSES = [
 ];
 const REST_UNITS = [[24, ':2'], [12, ':4'], [6, ':8'], [3, ':16']];
 
-/** One fret offset for the whole shape — never per note. */
-export function shapeOffset(refPc, targetPc, minFret, maxFret) {
+/**
+ * Every fret offset at which the whole shape fits the neck, lowest first — one
+ * offset for the whole shape, never per note. Offsets are twelve apart, so this
+ * is the shape's list of octave placements: [low] or [low, low + 12].
+ */
+export function shapeOffsets(refPc, targetPc, minFret, maxFret) {
   let o = (targetPc - refPc + 12) % 12;
-  if (maxFret + o > NECK_CEIL) o -= 12;
-  if (minFret + o < 1) o += 12;
-  return o;
+  while (minFret + o - 12 >= NECK_FLOOR) o -= 12; // walk down to the lowest that fits
+  const offsets = [];
+  for (; maxFret + o <= NECK_CEIL; o += 12) offsets.push(o);
+  return offsets;
 }
 
 /** ascend, then descend without repeating the top note */
@@ -122,13 +147,11 @@ function passBars(seq, { dur, tick, tuplet }) {
   return bars;
 }
 
-/** The alphaTex text for one (table, shape, root). */
-export function buildFile(table, shape, root, { title, ks }) {
-  const frets = shape.ascending.map(([f]) => f);
-  const o = shapeOffset(table.referenceRootPitchClass, PC[root], Math.min(...frets), Math.max(...frets));
-  const moved = shape.ascending.map(([f, s]) => [f + o, s]);
+/** The alphaTex text for one (table, shape, root) at one placement. */
+export function buildFile(table, shape, root, { title, ks, offset }) {
+  const moved = shape.ascending.map(([f, s]) => [f + offset, s]);
   for (const [f] of moved) {
-    if (f < 1 || f > NECK_CEIL) {
+    if (f < NECK_FLOOR || f > NECK_CEIL) {
       throw new Error(`${table.family} ${root} p${shape.position}: fret ${f} off the neck`);
     }
   }
@@ -153,9 +176,12 @@ export function buildFile(table, shape, root, { title, ks }) {
   return `\\title "${title}"\n\\ks ${ks}\n\\ts 4 4\n\\tempo 100\n.\n${body}`;
 }
 
-/** Where one (table, root, shape) file lives on disk. */
-export function outputPath(table, root, shape, repoRoot = REPO) {
-  return resolve(repoRoot, `public/notation/guitar/scales/${table.dir}/${slug(root)}/p${shape.position}.alphatex`);
+/** Where one (table, root, shape, placement) file lives on disk. */
+export function outputPath(table, root, shape, repoRoot = REPO, variant = VARIANTS[0]) {
+  return resolve(
+    repoRoot,
+    `public/notation/guitar/scales/${table.dir}/${slug(root)}/p${shape.position}${variant.suffix}.alphatex`,
+  );
 }
 
 /**
@@ -170,11 +196,37 @@ export function planFamily(table, { roots = ROOTS, repoRoot = REPO } = {}) {
   for (const root of roots) {
     if (!(root in PC)) throw new Error(`unknown root "${root}" — want one of ${ROOTS.join(', ')}`);
     for (const shape of table.shapes) {
-      const content = buildFile(table, shape, root, {
-        title: titleFor(table, root, shape),
-        ks: keySignatureFor(table, root),
+      const frets = shape.ascending.map(([f]) => f);
+      const offsets = shapeOffsets(
+        table.referenceRootPitchClass,
+        PC[root],
+        Math.min(...frets),
+        Math.max(...frets),
+      );
+      if (!offsets.length)
+        throw new Error(
+          `${table.family} ${root} p${shape.position}: no placement fits frets ${NECK_FLOOR}-${NECK_CEIL}`,
+        );
+      if (offsets.length > VARIANTS.length)
+        throw new Error(
+          `${table.family} ${root} p${shape.position}: ${offsets.length} placements fit but only ` +
+            `${VARIANTS.length} are named — add one to VARIANTS rather than dropping it`,
+        );
+      offsets.forEach((offset, i) => {
+        const variant = VARIANTS[i];
+        const content = buildFile(table, shape, root, {
+          title: titleFor(table, root, shape, variant),
+          ks: keySignatureFor(table, root),
+          offset,
+        });
+        plan.push({
+          path: outputPath(table, root, shape, repoRoot, variant),
+          root,
+          position: shape.position,
+          variant: variant.suffix,
+          content,
+        });
       });
-      plan.push({ path: outputPath(table, root, shape, repoRoot), root, position: shape.position, content });
     }
   }
   return plan;

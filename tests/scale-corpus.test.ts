@@ -8,7 +8,7 @@ import { join } from 'node:path';
 // file there is a pure function of (table, root). Without this test, a hand
 // edit to one committed file or one shape table would drift silently — nobody
 // would notice until a wrong note turned up in practice. This regenerates the
-// entire 204-file corpus in memory on every run and diffs it against disk byte
+// entire 320-file corpus in memory on every run and diffs it against disk byte
 // for byte.
 import { planFamily } from '../.claude/skills/_notation/scripts/generate-scale-family.mjs';
 
@@ -56,10 +56,23 @@ describe('the committed scale corpus is reproducible from its shape tables', () 
     });
   }
 
-  it('totals the 204 files documented in CLAUDE.md (60 minor-pentatonic + 60 ionian + 84 ionian-3nps)', () => {
+  it('totals 320 files (99 minor-pentatonic + 96 ionian + 125 ionian-3nps)', () => {
     const total = TABLE_FILES
       .map((f) => JSON.parse(readFileSync(join(SHAPES_DIR, f), 'utf8')))
       .reduce((n, table) => n + planFamily(table).length, 0);
-    expect(total).toBe(204);
+    expect(total).toBe(320);
+  });
+
+  it('writes both octave placements wherever the neck has room for them', () => {
+    // The whole point of the -up files: a box practised only where the generator
+    // happened to land it leaves the other half of the neck unfamiliar. 204 of
+    // these are the low placements (12 roots x 17 positions); the rest are the
+    // octave-up twins, and a rule change that quietly stopped emitting them
+    // would otherwise leave every other assertion here green.
+    const suffixed = TABLE_FILES
+      .map((f) => JSON.parse(readFileSync(join(SHAPES_DIR, f), 'utf8')))
+      .flatMap((table) => planFamily(table))
+      .filter((p) => p.variant === '-up');
+    expect(suffixed.length).toBe(116);
   });
 });
