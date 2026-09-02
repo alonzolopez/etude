@@ -4,6 +4,11 @@
 Each instrument file: `{"instrument": name, "categories": [{key, name, exercises}]}`.
 Category order = wizard display order; category keys unique per file.
 
+In the guitar `scales` category, weight 0 also means "notation not authored yet":
+the owner keeps the exercise listed as a visible TODO, and the category serves
+alphaTex only. So an entry there whose `file` is absent or is a `.gpx` carries
+weight 0 — set it with `set-weight.mjs`, and raise it once its `.alphatex` exists.
+
 Exercise fields: `title`* , `weight`* (≥0; 0 = disabled, never drawn), `url`,
 `file`, `key[]`, `position[]`,
 `metronome_range [lo, hi]`, `description`. Type by field: `file` → alphaTab
