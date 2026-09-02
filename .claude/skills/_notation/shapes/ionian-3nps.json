@@ -2,7 +2,7 @@
   "family": "ionian-3nps",
   "dir": "ionian-3nps",
   "keySignature": "major",
-  "titleTemplate": "{root} ionian — three notes per string, position {position}",
+  "titleTemplate": "{root} ionian — three notes per string, position {position}{mode}",
   "referenceRoot": "A",
   "referenceRootPitchClass": 9,
   "shapes": [

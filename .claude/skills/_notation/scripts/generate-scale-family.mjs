@@ -80,13 +80,41 @@ export function keySignatureFor(table, root) {
   throw new Error(`${table.family}: unknown keySignature "${table.keySignature}" (want "major" or "relative-major")`);
 }
 
-/** table.titleTemplate with {root}, {position} and {shape} substituted. */
+// The seven modes of the major scale, indexed by the degree a shape starts on.
+// A three-notes-per-string position IS a mode: position N begins on degree N and
+// the run turns around without repeating the top note, so it starts and ends on
+// that mode's root. D ionian position 5 is A mixolydian — same notes, same frets,
+// same first and last note. Naming the mode in the title is what stops the corpus
+// from being duplicated once per mode: six modal families would be ~1300 files
+// byte-identical to the ionian ones.
+const MAJOR_DEGREE_SEMITONES = [0, 2, 4, 5, 7, 9, 11];
+const MODE_NAMES = ['ionian', 'dorian', 'phrygian', 'lydian', 'mixolydian', 'aeolian', 'locrian'];
+
+/**
+ * " (A mixolydian)" for a shape that starts on a degree other than the first.
+ * Empty for degree 1, where it would only repeat the root, and empty for tables
+ * whose positions are not degree-aligned — the CAGED shapes are regions of the
+ * neck, not modes, and only position 4 starts on the root.
+ */
+export function modeSuffix(table, root, shape) {
+  const degree = shape.startsOnDegree;
+  if (degree === undefined || degree === 1) return '';
+  if (table.keySignature !== 'major')
+    throw new Error(
+      `${table.family}: startsOnDegree only names a mode against a major-scale table, got "${table.keySignature}"`,
+    );
+  const pc = (PC[root] + MAJOR_DEGREE_SEMITONES[degree - 1]) % 12;
+  return ` (${nameOfPc(pc)} ${MODE_NAMES[degree - 1]})`;
+}
+
+/** table.titleTemplate with {root}, {position}, {shape} and {mode} substituted. */
 export function titleFor(table, root, shape, variant = VARIANTS[0]) {
   return (
     table.titleTemplate
       .replace(/\{root\}/g, root)
       .replace(/\{position\}/g, String(shape.position))
-      .replace(/\{shape\}/g, shape.shape ?? '') + variant.title
+      .replace(/\{shape\}/g, shape.shape ?? '')
+      .replace(/\{mode\}/g, modeSuffix(table, root, shape)) + variant.title
   );
 }
 
